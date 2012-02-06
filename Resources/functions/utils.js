@@ -67,7 +67,7 @@ var sets = {
         contentBody: './content_body.png'
     },
     menu: {
-        color: '#fff'
+        color: '#000'
     },
     dimensions: {
       width: Ti.Platform.displayCaps.platformWidth,
@@ -108,7 +108,7 @@ var context = {
       sid: 'Utilizar'
   }, {
       title: 'AcrySof® Editorial',
-      path: 'about.js',
+      path: 'app.js',
       color: sets.menu.color,
       hasChild: true,
       sid: 'Editorial'

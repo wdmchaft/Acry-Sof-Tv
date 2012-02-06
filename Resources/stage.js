@@ -1,135 +1,81 @@
-Ti.include('functions/utils.js');
+// Includes
 Ti.include('functions/db.js');
+Ti.include('functions/utils.js');
 
-// Stage
-var win = Ti.UI.currentWindow;
-var stage = Ti.UI.createWindow();
+// Hide current window
+Ti.UI.currentWindow.hide();
 
-var section;
-// Verify the section and add to section variable, the titel
-section = hasSection(context.menu, win, 'title');
+// Main window
+var win = Ti.UI.createWindow({
+    backgroundImage: sets.img.background
+});
 
+// Define a section start
+
+var section = hasSection( context.menu, Ti.UI.currentWindow, 'title' ); // Verify the section, and add to the section variable the title.
+
+// Define a section end
+
+//header
 var header = Ti.UI.createView({
     top: 0,
     left: 0,
-    width: 'auto',
-    height: 87,
-    backgroundImage: sets.img.header,
-    opacity: 0
+    height: 100,
+    backgroundColor: '#d2d2d2'
 });
+win.add(header);
 
-var titleHeader = Ti.UI.createLabel({
-    top: 10,
-    left: 10,
+// Lable for title
+var title = Ti.UI.createLabel({
+    text: section,
     width: 'auto',
     height: 'auto',
-    textAlign: 'left',
-    text: section,
-    shadowColor: '#000',
-    color: '#1b8ea3',
-    font: {fontSize: 26, fontFamily: 'Helvetica'},
-    opacity: 0
+    font: {fontSize: 32, fontFamily: 'Helvetica'},
+    color: '#000'
 });
-header.add(titleHeader);
+header.add(title);
 
-var body = makeBody({
-	view: {
-        top: 0,
-        left:0,
-		height: 'auto',
-		width: 'auto'
-	}
+// Frame for images
+var frameImg = Ti.UI.createView({
+    top: 150,
+    width: 600,
+    height: 400,
+    backgroundColor: '#000'
 });
+win.add(frameImg);
 
-var frameColor = Ti.UI.createView({
-    top: 90,
-    left: 15,
-    right: 15,
-    width: 'auto',
-    height: 280,
-    opacity: 1,
-    backgroundColor: '#000',
-    backgroundImage: 'nemo.png'
-});
+// Tv Image demo start
 
-/*var frameImg = Ti.UI.createImageView({
-    image: './nemo.png',
-    top: 90,
-    left: 15,
-    right: 15
-});*/
+function transitionEffect( element, settings ) {
+    // Control the effect
+    var touch;
+    // Color animation transition
+    settings['startColor'];
+    settings['endColor'];
+    // Image animation transition
+    settings['startImg'];
+    settings['endImg'];
+    // Time to execution
+    settings['duration']
 
-var touch = false;
-
-frameColor.addEventListener('touchstart', function ( start ) {
-    if ( start.x >= 0 && start.x <= 140 && touch === false ) {
-        frameColor.addEventListener('touchend', function ( end ) {
-            if ( end.x >= 150 && end.x < 350 && touch === false ) {
-                frameColor.animate({opacity: 0, duration: 1000}, function () {
-                    frameColor.backgroundColor = '#fff';
-
-                    frameColor.animate({backgroundColor: '#fff', opacity: 1, duration: 800}, function () {
-                        touch = true;
+    element.addEventListener('touchstart', function ( start ) {
+        if ( start.x >= 0 && start.x <= 140 && touch === false ) {
+            
+            element.addEventListener('touchend', function ( end ) {
+                if ( end.x >= 150 && end.x < 350 && touch === false ) {
+                    
+                    element.animate({opacity: 0, settings['duration']}, function () {
+                        
                     });
-                });
-            }    
-        });
-    } if ( start.x >= 150 && start.x <= 350 && touch === true ) {
-        frameColor.addEventListener('touchend', function ( end ) {
-            if ( end.x >= 0 && end.x < 140 && touch === true ) {
-                frameColor.animate({opacity: 0, duration: 1000}, function () {
-                    frameColor.backgroundColor = '#000';
 
-                    frameColor.animate({backgroundColor: '#000', opacity: 1, duration: 800}, function () {
-                        touch = false;
-                    });
-                });
-            }    
-        });
-    }
-});
+                }
+            });
 
-var bodySlider = Ti.UI.createScrollableView({
-    top: 80,
-    width: 'auto',
-    height: 300,
-    views: [frameColor],
-    showPagingControl: true,
-    clipViews: false
-});
-
-var anchorMenu = Ti.UI.createLabel({
-    text: 'Ir para o menu',
-    bottom: 18,
-    width: 'auto',
-    heitgh: 40,
-    font: {fontSize: 16},
-    color: '#fff',
-    textAlign: 'center'
-});
-
-anchorMenu.addEventListener('click', function ( e ) {
-    var win = Ti.UI.createWindow({
-        title: 'Menu',
-        url: 'menu.js'
+        }
     });
+}
 
-    stage.close();
-    win.open();
-});
-
-// Animation of the header
-header.animate({opacity: 1, duration: 500}, function () {
-	titleHeader.animate({opacity: 1, duration: 300});
-});
-
-// Body content
-body.add(header);
-body.add(frameColor);
-body.add(anchorMenu);
-
-// Menu window
-stage.add(body);
+// Tv Image demo end
 
 // Open the main window
-stage.open();
+win.open();

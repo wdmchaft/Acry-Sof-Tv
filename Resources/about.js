@@ -31,7 +31,7 @@ var header = Ti.UI.createView({
     left: 0,
     width: 'auto',
     height: 87,
-    backgroundColor: '#000',
+    backgroundColor:
     backgroundImage: sets.img.header,
     opacity: 0
 });
