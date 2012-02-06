@@ -42,21 +42,15 @@ var frameImg = Ti.UI.createView({
     top: 150,
     width: 600,
     height: 400,
-    backgroundColor: '#000',
-    //backgroundImage: 'nemo.png',
+    backgroundColor: '#ccc',
+    backgroundImage: 'nemo-after.png',
     opacity: 1
 });
 win.add(frameImg);
 
 // Tv Image demo start
 
-transitionEffect( {
-    startColor: '#000',
-    endColor: '#fff',
-    duration: 1000
-} );
-
-function transitionEffect( settings, callback ) {
+var transitionEffect = function ( settings ) {
     // Control the effect
     var touch;
     // Color animation transition
@@ -68,56 +62,46 @@ function transitionEffect( settings, callback ) {
     // Time to execution
     settings['duration'];
 
-    // Set default value
     touch = false;
 
-    var toStart = function () {
-        frameImg.addEventListener('touchend', function ( end ) {
-            if ( end.x >= 260 && end.x < 600 && touch === false ) {
-                
-                frameImg.animate({ opacity: 0, duration: settings['duration'] }, function () {
-                    // Android only -> frameImg.backgroundColor = settings['endColor'];
+    if ( touch === false ) {
+        frameImg.addEventListener('touchstart', function ( start ) {
+            frameImg.addEventListener('touchend', function ( end ) {
+                if ( start.x - end.x < -250 && touch === false ) {
+                    frameImg.animate({ opacity: 0, duration: settings['duration'] });
+                    
+                    setTimeout(function () {
+                        frameImg.backgroundImage = settings['endImg'];
+                        frameImg.animate({ backgroundImage: settings['endImg'], opacity: 1, duration: settings['duration'] }, function () {
+                            // If was clicked, the variable touch is true, else false
+                            Ti.API.info(start.x - end.x);
+                            touch = true;
+                        });
+                    }, settings['duration']);     
+                } if ( start.x - end.x > 250 && touch === true ) {
+                    frameImg.animate({ opacity: 0, duration: settings['duration'] });
 
-                    frameImg.animate({ backgroundColor: settings['endColor'], opacity: 1, duration: settings['duration'] }, function () {
-                        // If was clicked, the variable touch is true, else false
-                        touch = true;                                             
-                    });
-
-                });
-
-            }
-        });      
-    };
-
-    var toEnd = function () {
-        frameImg.addEventListener('touchend', function ( end ) {
-            if ( end.x >= 0 && end.x < 250 && touch === true ) {
-                
-                frameImg.animate({ opacity: 0, duration: settings['duration'] }, function () {
-                    // Android only -> frameImg.backgroundColor = settings['startColor'];
-
-                    frameImg.animate({ backgroundColor: settings['startColor'], opacity: 1, duration: settings['duration'] }, function () {
-                        // Same behavior
-                        touch = false;
-                    });
-                });
-
-            }
+                    setTimeout(function () {
+                        frameImg.backgroundImage = settings['startImg'];
+                        frameImg.animate({ backgroundImage: settings['startImg'], opacity: 1, duration: settings['duration'] }, function () {
+                            // If was clicked, the variable touch is true, else false
+                            Ti.API.info(start.x - end.x);
+                            touch = false;
+                        });
+                    }, settings['duration']); 
+                }
+            });
         });
-    };
+    } else {
+        return transitionEffect( settings );
+    }
+};
 
-    frameImg.addEventListener('touchstart', function ( start ) {
-        if ( start.x >= 0 && start.x <= 250 && touch === false ) {
-            Ti.API.info('Touch started!');
-            toStart();
-        } if ( start.x >= 260 && start.x <= 600 && touch === true ) {
-            Ti.API.info('Touch ended!');
-            toEnd();
-        }
-    });
-    
-    return callback && callback();
-}
+transitionEffect({
+    startImg: './nemo-after.png',
+    endImg: './nemo.png',
+    duration: 1000
+});
 
 // Tv Image demo end
 
