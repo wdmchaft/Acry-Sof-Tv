@@ -40,13 +40,20 @@ var frameImg = Ti.UI.createView({
     top: 150,
     width: 600,
     height: 400,
-    backgroundColor: '#000'
+    backgroundColor: '#000',
+    opacity: 1
 });
 win.add(frameImg);
 
 // Tv Image demo start
 
-function transitionEffect( element, settings ) {
+transitionEffect( {
+    startColor: '#000',
+    endColor: '#fff',
+    duration: 1000
+} );
+
+function transitionEffect( settings, callback ) {
     // Control the effect
     var touch;
     // Color animation transition
@@ -56,23 +63,52 @@ function transitionEffect( element, settings ) {
     settings['startImg'];
     settings['endImg'];
     // Time to execution
-    settings['duration']
+    settings['duration'];
 
-    element.addEventListener('touchstart', function ( start ) {
-        if ( start.x >= 0 && start.x <= 140 && touch === false ) {
+    // Set default value
+    touch = false;
+
+    frameImg.addEventListener('touchstart', function ( start ) {
+        Ti.API.info('Touch started!');
+        if ( start.x >= 0 && start.x <= 250 && touch === false ) {
             
-            element.addEventListener('touchend', function ( end ) {
-                if ( end.x >= 150 && end.x < 350 && touch === false ) {
+            frameImg.addEventListener('touchend', function ( end ) {
+                if ( end.x >= 260 && end.x < 600 && touch === false ) {
                     
-                    element.animate({opacity: 0, settings['duration']}, function () {
-                        
+                    frameImg.animate({ opacity: 0, duration: settings['duration'] }, function () {
+                        frameImg.backgroundColor = settings['endColor'];
+
+                        frameImg.animate({ backgroundColor: settings['endColor'], opacity: 1, duration: settings['duration'] }, function () {
+                            // If was clicked, the variable touch is true, else false
+                            touch = true;                                             
+                        });
+
                     });
 
                 }
             });
 
+        } if ( start.x >= 260 && start.x <= 600 && touch === true ) {
+            Ti.API.info('Touch ended!');
+            frameImg.addEventListener('touchend', function ( end ) {
+                if ( end.x >= 0 && end.x < 250 && touch === true ) {
+                    
+                    frameImg.animate({ opacity: 0, duration: settings['duration'] }, function () {
+                        frameImg.backgroundColor = settings['startColor'];
+
+                        frameImg.animate({ backgroundColor: settings['startColor'], opacity: 1, duration: settings['duration'] }, function () {
+                            // Same behavior
+                            touch = false;
+                        });
+                    });
+
+                }
+            });            
+
         }
     });
+    
+    return callback && callback();
 }
 
 // Tv Image demo end
