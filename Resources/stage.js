@@ -2,8 +2,10 @@
 Ti.include('functions/db.js');
 Ti.include('functions/utils.js');
 
+//Current window
+var cWin = Ti.UI.currentWindow;
 // Hide current window
-Ti.UI.currentWindow.hide();
+cWin.hide();
 
 // Main window
 var win = Ti.UI.createWindow({
@@ -12,7 +14,7 @@ var win = Ti.UI.createWindow({
 
 // Define a section start
 
-var section = hasSection( context.menu, Ti.UI.currentWindow, 'title' ); // Verify the section, and add to the section variable the title.
+var section = cWin.title; // Verify the section, and add to the section variable the title.
 
 // Define a section end
 
@@ -41,6 +43,7 @@ var frameImg = Ti.UI.createView({
     width: 600,
     height: 400,
     backgroundColor: '#000',
+    //backgroundImage: 'nemo.png',
     opacity: 1
 });
 win.add(frameImg);
@@ -68,43 +71,48 @@ function transitionEffect( settings, callback ) {
     // Set default value
     touch = false;
 
-    frameImg.addEventListener('touchstart', function ( start ) {
-        Ti.API.info('Touch started!');
-        if ( start.x >= 0 && start.x <= 250 && touch === false ) {
-            
-            frameImg.addEventListener('touchend', function ( end ) {
-                if ( end.x >= 260 && end.x < 600 && touch === false ) {
-                    
-                    frameImg.animate({ opacity: 0, duration: settings['duration'] }, function () {
-                        frameImg.backgroundColor = settings['endColor'];
+    var toStart = function () {
+        frameImg.addEventListener('touchend', function ( end ) {
+            if ( end.x >= 260 && end.x < 600 && touch === false ) {
+                
+                frameImg.animate({ opacity: 0, duration: settings['duration'] }, function () {
+                    // Android only -> frameImg.backgroundColor = settings['endColor'];
 
-                        frameImg.animate({ backgroundColor: settings['endColor'], opacity: 1, duration: settings['duration'] }, function () {
-                            // If was clicked, the variable touch is true, else false
-                            touch = true;                                             
-                        });
-
+                    frameImg.animate({ backgroundColor: settings['endColor'], opacity: 1, duration: settings['duration'] }, function () {
+                        // If was clicked, the variable touch is true, else false
+                        touch = true;                                             
                     });
 
-                }
-            });
+                });
 
+            }
+        });      
+    };
+
+    var toEnd = function () {
+        frameImg.addEventListener('touchend', function ( end ) {
+            if ( end.x >= 0 && end.x < 250 && touch === true ) {
+                
+                frameImg.animate({ opacity: 0, duration: settings['duration'] }, function () {
+                    // Android only -> frameImg.backgroundColor = settings['startColor'];
+
+                    frameImg.animate({ backgroundColor: settings['startColor'], opacity: 1, duration: settings['duration'] }, function () {
+                        // Same behavior
+                        touch = false;
+                    });
+                });
+
+            }
+        });
+    };
+
+    frameImg.addEventListener('touchstart', function ( start ) {
+        if ( start.x >= 0 && start.x <= 250 && touch === false ) {
+            Ti.API.info('Touch started!');
+            toStart();
         } if ( start.x >= 260 && start.x <= 600 && touch === true ) {
             Ti.API.info('Touch ended!');
-            frameImg.addEventListener('touchend', function ( end ) {
-                if ( end.x >= 0 && end.x < 250 && touch === true ) {
-                    
-                    frameImg.animate({ opacity: 0, duration: settings['duration'] }, function () {
-                        frameImg.backgroundColor = settings['startColor'];
-
-                        frameImg.animate({ backgroundColor: settings['startColor'], opacity: 1, duration: settings['duration'] }, function () {
-                            // Same behavior
-                            touch = false;
-                        });
-                    });
-
-                }
-            });            
-
+            toEnd();
         }
     });
     
@@ -112,6 +120,40 @@ function transitionEffect( settings, callback ) {
 }
 
 // Tv Image demo end
+
+// Anchor to menu
+var anchorMenu = Ti.UI.createLabel({
+    text: 'Ir para o menu',
+    bottom: 280,
+    width: 'auto',
+    height: 20,
+    textAlign: 'center',
+    font: {fontSize: 16, fontFamily: 'Helvetica'},
+    color: '#fff'
+});
+win.add(anchorMenu);
+
+// Anchor events start
+
+anchorMenu.addEventListener('touchstart', function () {
+    anchorMenu.color = '#f19a03';
+});
+
+anchorMenu.addEventListener('touchend', function () {
+    anchorMenu.color = '#fff';
+});
+
+anchorMenu.addEventListener('click', function () {
+    var menu = Ti.UI.createWindow({
+        title: 'Menu Principal',
+        url: 'menu.js'
+    });
+
+    win.close(); // Close this window and open,
+    menu.open(); // this menu window.
+});
+
+// Anchor events end
 
 // Open the main window
 win.open();
