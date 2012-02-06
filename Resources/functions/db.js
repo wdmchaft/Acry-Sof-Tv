@@ -1,10 +1,10 @@
-function getContextBy(tablename, field, value) {
+function getContextBy(db, tablename, field, value) {
 	tablename = tablename || false;
 	field = field || false;
 	value = value || false;
 
 	if ( tablename && field && value ) {
-		var db = Ti.Database.install('../db/acrysof.sqlite', 'acrysof');
+		var db = db;
 		var query = 'SELECT * FROM {tablename} WHERE {field} = \"{value}\"';
 
 		// Replace tablename

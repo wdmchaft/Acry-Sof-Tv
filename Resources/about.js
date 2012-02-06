@@ -2,14 +2,21 @@
 Ti.include('functions/db.js');
 Ti.include('functions/utils.js');
 
-var aboutSelection = getContextBy('section', 'id', 1);
+// DB invoke
+var db = Ti.Database.install('./db/acrysof.sqlite', 'acrysof');
+// Get all content of db
+var aboutSelection = getContextBy(db, 'section', 'id', 1);
+// Get filtered by field, in db
 var aboutContent = {
     title: aboutSelection.fieldByName('title'),
     content: aboutSelection.fieldByName('content')
 };
+// Close the db
 aboutSelection.close();
 
+// get a current window with informations
 var currentWindow = Ti.UI.currentWindow;
+// Body content of this section
 var about = Ti.UI.createWindow({
     top: 0,
     left: 0,
@@ -24,10 +31,12 @@ var header = Ti.UI.createView({
     left: 0,
     width: 'auto',
     height: 87,
+    backgroundColor: '#000',
     backgroundImage: sets.img.header,
     opacity: 0
 });
 
+// Title of this, section
 var titleHeader = Ti.UI.createLabel({
     top:10,
     left: 10,
@@ -41,6 +50,7 @@ var titleHeader = Ti.UI.createLabel({
     font: {fontSize: 26, fontFamily: 'Helvetica'},
     opacity: 0
 });
+// add title to this part of app
 header.add(titleHeader);
 
 // Body of application
@@ -62,6 +72,7 @@ var contentBody = Ti.UI.createView({
     backgroundImage: sets.img.contentBody
 });
 
+// Label of textual content
 var labelContentBody = Ti.UI.createLabel({
     text: aboutContent.content,
     font: {fontSize: 11},
@@ -74,8 +85,10 @@ var labelContentBody = Ti.UI.createLabel({
     width: 'auto',
     height: 'auto'
 });
+// add label to body of content
 contentBody.add(labelContentBody);
 
+// Create a anchor menu, with go to main menu
 var anchorMenu = Ti.UI.createLabel({
     text: 'Ir para o menu',
     bottom: 18,
@@ -86,6 +99,7 @@ var anchorMenu = Ti.UI.createLabel({
     textAlign: 'center'
 });
 
+// add click event to this item
 anchorMenu.addEventListener('click', function ( e ) {
     var win = Ti.UI.createWindow({
         title: 'Menu',
@@ -96,6 +110,7 @@ anchorMenu.addEventListener('click', function ( e ) {
     win.open();
 });
 
+// animate the header for entance
 header.animate({opacity: 1, duration: 500}, function () {
     titleHeader.animate({opacity: 1, duration: 300});
 });
