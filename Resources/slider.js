@@ -15,6 +15,7 @@ var win = Ti.UI.createWindow({
 // table of content
 var tableContent = Ti.UI.createView({
 	top: 10,
+	left: 0,
 	width: 1600,
 	height: 700,
 });
@@ -61,9 +62,9 @@ var slider = Ti.UI.createSlider({
 // Slider events start
 
 slider.addEventListener('change', function ( e ) {
-	if ( e.source.value >= 1 && e.source.value < 2 ) {
-		tableContent.animate({ left: -420, duration: 1000 });
-	} if ( e.source.value <= 2 && e.source.value > 1 ) {
+	if ( e.source.value === 1 && e.source.value < 2 ) {
+		tableContent.animate({ left: -410, duration: 1000 });
+	} if ( e.source.value === 2 && e.source.value > 1 ) {
 		tableContent.animate({ left: -1210, duration: 1000 });
 	}
 });

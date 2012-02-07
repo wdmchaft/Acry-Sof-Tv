@@ -54,6 +54,7 @@ function hasSection ( context, comparison, child ) {
   }
 }
 
+// transition with fade effect
 var transitionEffect = function ( settings ) {
     // Control the effect
     var touch;
@@ -78,7 +79,6 @@ var transitionEffect = function ( settings ) {
                         frameImg.backgroundImage = settings['endImg'];
                         frameImg.animate({ backgroundImage: settings['endImg'], opacity: 1, duration: settings['duration'] }, function () {
                             // If was clicked, the variable touch is true, else false
-                            Ti.API.info(start.x - end.x);
                             touch = true;
                         });
                     }, settings['duration']);     
@@ -89,7 +89,6 @@ var transitionEffect = function ( settings ) {
                         frameImg.backgroundImage = settings['startImg'];
                         frameImg.animate({ backgroundImage: settings['startImg'], opacity: 1, duration: settings['duration'] }, function () {
                             // If was clicked, the variable touch is true, else false
-                            Ti.API.info(start.x - end.x);
                             touch = false;
                         });
                     }, settings['duration']); 
