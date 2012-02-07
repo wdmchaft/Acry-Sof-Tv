@@ -48,8 +48,6 @@ var publication = Ti.UI.createView({
 });
 tableContent.add(publication);
 
-tableContent.left = -1210;
-
 // Slider
 var slider = Ti.UI.createSlider({
 	min: 1,
@@ -63,6 +61,11 @@ var slider = Ti.UI.createSlider({
 // Slider events start
 
 slider.addEventListener('change', function ( e ) {
+	if ( e.source.value >= 1 && e.source.value < 2 ) {
+		tableContent.animate({ left: -420, duration: 1000 });
+	} if ( e.source.value <= 2 && e.source.value > 1 ) {
+		tableContent.animate({ left: -1210, duration: 1000 });
+	}
 });
 
 // Slider events end
