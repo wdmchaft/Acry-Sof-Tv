@@ -38,7 +38,6 @@ win.add(menu);
 // Menu events start
 
 menu.addEventListener('click', function ( e ) {
-    Ti.API.info('Clicked');
     if ( e.rowData.path ) {
         var nWin = Ti.UI.createWindow({
             title: e.rowData.title,

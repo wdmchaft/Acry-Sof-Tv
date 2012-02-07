@@ -48,62 +48,11 @@ var frameImg = Ti.UI.createView({
 });
 win.add(frameImg);
 
-// Tv Image demo start
-
-var transitionEffect = function ( settings ) {
-    // Control the effect
-    var touch;
-    // Color animation transition
-    settings['startColor'];
-    settings['endColor'];
-    // Image animation transition
-    settings['startImg'];
-    settings['endImg'];
-    // Time to execution
-    settings['duration'];
-
-    touch = false;
-
-    if ( touch === false ) {
-        frameImg.addEventListener('touchstart', function ( start ) {
-            frameImg.addEventListener('touchend', function ( end ) {
-                if ( start.x - end.x < -250 && touch === false ) {
-                    frameImg.animate({ opacity: 0, duration: settings['duration'] });
-                    
-                    setTimeout(function () {
-                        frameImg.backgroundImage = settings['endImg'];
-                        frameImg.animate({ backgroundImage: settings['endImg'], opacity: 1, duration: settings['duration'] }, function () {
-                            // If was clicked, the variable touch is true, else false
-                            Ti.API.info(start.x - end.x);
-                            touch = true;
-                        });
-                    }, settings['duration']);     
-                } if ( start.x - end.x > 250 && touch === true ) {
-                    frameImg.animate({ opacity: 0, duration: settings['duration'] });
-
-                    setTimeout(function () {
-                        frameImg.backgroundImage = settings['startImg'];
-                        frameImg.animate({ backgroundImage: settings['startImg'], opacity: 1, duration: settings['duration'] }, function () {
-                            // If was clicked, the variable touch is true, else false
-                            Ti.API.info(start.x - end.x);
-                            touch = false;
-                        });
-                    }, settings['duration']); 
-                }
-            });
-        });
-    } else {
-        return transitionEffect( settings );
-    }
-};
-
 transitionEffect({
     startImg: './nemo-after.png',
     endImg: './nemo.png',
     duration: 1000
 });
-
-// Tv Image demo end
 
 // Anchor to menu
 var anchorMenu = Ti.UI.createLabel({

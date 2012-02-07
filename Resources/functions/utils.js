@@ -54,6 +54,53 @@ function hasSection ( context, comparison, child ) {
   }
 }
 
+var transitionEffect = function ( settings ) {
+    // Control the effect
+    var touch;
+    // Color animation transition
+    settings['startColor'];
+    settings['endColor'];
+    // Image animation transition
+    settings['startImg'];
+    settings['endImg'];
+    // Time to execution
+    settings['duration'];
+
+    touch = false;
+
+    if ( touch === false ) {
+        frameImg.addEventListener('touchstart', function ( start ) {
+            frameImg.addEventListener('touchend', function ( end ) {
+                if ( start.x - end.x < -250 && touch === false ) {
+                    frameImg.animate({ opacity: 0, duration: settings['duration'] });
+                    
+                    setTimeout(function () {
+                        frameImg.backgroundImage = settings['endImg'];
+                        frameImg.animate({ backgroundImage: settings['endImg'], opacity: 1, duration: settings['duration'] }, function () {
+                            // If was clicked, the variable touch is true, else false
+                            Ti.API.info(start.x - end.x);
+                            touch = true;
+                        });
+                    }, settings['duration']);     
+                } if ( start.x - end.x > 250 && touch === true ) {
+                    frameImg.animate({ opacity: 0, duration: settings['duration'] });
+
+                    setTimeout(function () {
+                        frameImg.backgroundImage = settings['startImg'];
+                        frameImg.animate({ backgroundImage: settings['startImg'], opacity: 1, duration: settings['duration'] }, function () {
+                            // If was clicked, the variable touch is true, else false
+                            Ti.API.info(start.x - end.x);
+                            touch = false;
+                        });
+                    }, settings['duration']); 
+                }
+            });
+        });
+    } else {
+        return transitionEffect( settings );
+    }
+};
+
 
 // Object for set patterns
 var sets = {
@@ -112,5 +159,11 @@ var context = {
       color: sets.menu.color,
       hasChild: true,
       sid: 'Editorial'
+  }, {
+    title: 'Slider test',
+    path: 'slider.js',
+    color: sets.menu.color,
+    hasChild: true,
+    sid: 'sliderTest'
   }]
 };
