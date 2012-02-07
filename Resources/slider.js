@@ -44,10 +44,36 @@ var publication = Ti.UI.createView({
 	top: 100, 
 	left: 1300,
 	width: 600,
-	height: 700,
-	backgroundColor: '#f00'
+	height: 700
 });
 tableContent.add(publication);
+
+// Thumbnail container
+var containerThumb1 = Ti.UI.createView({
+	top: 0,
+	left: 0,
+	height: 200,
+	backgroundColor: '#0f0'
+});
+publication.add(containerThumb1);
+
+// Thumbnail container
+var containerThumb2 = Ti.UI.createView({
+	top: 205,
+	left: 0,
+	height: 200,
+	backgroundColor: '#0f0'
+});
+publication.add(containerThumb2);
+
+// Thumbnail container
+var containerThumb3 = Ti.UI.createView({
+	top: 410,
+	left: 0,
+	height: 200,
+	backgroundColor: '#0f0'
+});
+publication.add(containerThumb3);
 
 // Slider
 var slider = Ti.UI.createSlider({

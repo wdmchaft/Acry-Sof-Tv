@@ -56,7 +56,7 @@ transitionEffect({
 
 // Anchor to menu
 var anchorMenu = Ti.UI.createLabel({
-    text: 'Ir para o menu',
+    text: 'Voltar para o menu',
     bottom: 280,
     width: 'auto',
     height: 20,
