@@ -14,7 +14,7 @@ function getContextBy(db, tablename, field, value) {
 		// Replace value
 		query = query.replace('\{value\}', value);
 
-		var acryDB = db.execute(query);
+		var acryDB = db.execute(query) || false;
 
 		if ( acryDB ) {
 			return acryDB;

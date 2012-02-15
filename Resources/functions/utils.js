@@ -1,3 +1,44 @@
+Ti.include('db.js');
+
+// Pre defineds
+var db = Ti.Database.install('db/acrysof.sqlite', 'acrysofdb');
+
+var sectionContent = {
+  editorial: getContextBy(db, 'section', 'id', 1)
+};
+
+var defaultStyle = {
+  navigation: {
+    button: {
+      prevBgImg: '',
+      nextBgImg: 'img/button_forward.png'
+    }
+  },
+  typo: {
+    size: 22
+  }
+}
+
+// New functions
+var clearDashboard = function () {
+  var currentWindow = Ti.UI.currentWindow;
+
+  if ( typeof currentWindow !== 'undefined' ) {
+    currentWindow.hide();
+  }
+};
+
+// Create a button for navigation
+var createNavigationButton = function ( settings, eventName, eventFunction ) {
+  // Next page button
+  var Btn = Ti.UI.createButton( settings.button );
+
+  // Next page button action
+  Btn.addEventListener( eventName, eventFunction);
+
+  return Btn;
+};
+
 // Functions for utilize out the box
 
 function makeBody( options ) {
