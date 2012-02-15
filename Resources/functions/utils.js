@@ -16,6 +16,9 @@ var defaultStyle = {
   },
   typo: {
     size: 22
+  },
+  menu: {
+    footerBgImg: 'img/footer_background_menu.png' 
   }
 }
 
@@ -38,6 +41,33 @@ var createNavigationButton = function ( settings, eventName, eventFunction ) {
 
   return Btn;
 };
+
+// Create the standart footer menu
+var createFooterMenu = function () {
+  var footerMenu = Ti.UI.createView({
+    width: 768,
+    height: 235,
+    backgroundImage: defaultStyle.menu.footerBgImg,
+    opacity: 0.75,
+    bottom: -180
+  });
+  
+
+  var footerMenuOpened = false;
+
+  // Footer menu behavior
+  footerMenu.addEventListener('click', function ( e ) {
+    if ( footerMenuOpened === false ) {
+      footerMenu.animate({bottom: 0, duration: 1000});
+      footerMenuOpened = true;
+    } else {
+      footerMenu.animate({bottom: footerMenu.bottom, duration: 700});
+      footerMenuOpened = false;
+    }
+  });
+
+  return footerMenu;
+}
 
 // Functions for utilize out the box
 

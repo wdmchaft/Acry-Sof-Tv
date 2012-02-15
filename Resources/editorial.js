@@ -6,7 +6,8 @@ clearDashboard();
 
 // Main window
 var main = Ti.UI.createWindow({
-	backgroundImage: 'img/background_editorial.png'
+	backgroundImage: 'img/background_editorial.png',
+	orientationModes: [Ti.UI.PORTRAIT]
 });
 
 var nextButton = createNavigationButton({
@@ -50,6 +51,10 @@ var content = Ti.UI.createLabel({
 	font: { fontSize: defaultStyle.typo.size }
 });
 contentArea.add(content);
+
+// Main footer menu
+var footerMainMenu = createFooterMenu();
+main.add(footerMainMenu);
 
 // open the main window
 main.open();
