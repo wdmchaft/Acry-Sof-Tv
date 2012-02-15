@@ -25,7 +25,8 @@ var populateMenu = function ( itens ) {
 	var menu = {};
 	var menuSets = {
 		size: 28,
-		color: '#9284be'
+		color: '#9284be',
+		right: 25
 	}
 		
 	menu['item01'] = Ti.UI.createView({
@@ -44,7 +45,7 @@ var populateMenu = function ( itens ) {
 		color: menuSets.color,
 		textAlign: 'right',
 		top: 0,
-		right: 0
+		right: menuSets.right
 	});
 	menu.item01.add(menu.content01);
 
@@ -64,7 +65,7 @@ var populateMenu = function ( itens ) {
 		color: menuSets.color,
 		textAlign: 'right',
 		top: 0,
-		right: 0
+		right: menuSets.right
 	});
 	menu.item02.add(menu.content02);
 	
@@ -84,7 +85,7 @@ var populateMenu = function ( itens ) {
 		color: menuSets.color,
 		textAlign: 'right',
 		top: 0,
-		right: 0
+		right: menuSets.right
 	});
 	menu.item03.add(menu.content03);
 
@@ -104,7 +105,7 @@ var populateMenu = function ( itens ) {
 		color: menuSets.color,
 		textAlign: 'right',
 		top: 0,
-		right: 0
+		right: menuSets.right
 	});
 	menu.item04.add(menu.content04);
 
@@ -124,7 +125,7 @@ var populateMenu = function ( itens ) {
 		color: menuSets.color,
 		textAlign: 'right',
 		top: 0,
-		right: 0
+		right: menuSets.right
 	});
 	menu.item05.add(menu.content05);
 
@@ -144,7 +145,7 @@ var populateMenu = function ( itens ) {
 		color: menuSets.color,
 		textAlign: 'right',
 		top: 0,
-		right: 0
+		right: menuSets.right
 	});
 	menu.item06.add(menu.content06);
 
@@ -164,7 +165,7 @@ var populateMenu = function ( itens ) {
 		color: menuSets.color,
 		textAlign: 'right',
 		top: 0,
-		right: 0
+		right: menuSets.right
 	});
 	menu.item07.add(menu.content07);
 };
