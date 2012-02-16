@@ -2,12 +2,18 @@
 Ti.include('functions/utils.js');
 
 // Hide to clear space
-clearDashboard();
-
+clearDashboard();	
 // Main window
 var main = Ti.UI.createWindow({
 	backgroundImage: 'img/background_editorial.png',
-	orientationModes: [Ti.UI.PORTRAIT]
+	orientationModes: [Ti.UI.PORTRAIT],
+	opacity: 0,
+	width: 768,
+	left: -768
+});
+
+main.addEventListener('focus', function () {
+	main.animate({opacity: 1, left: 0, duration: 500});
 });
 
 var nextButton = createNavigationButton({

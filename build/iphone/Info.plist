@@ -18,7 +18,6 @@
 			<key>CFBundleURLSchemes</key>
 			<array>
 				<string>acrysoftv</string>
-				
 			</array>
 		</dict>
 	</array>
@@ -38,6 +37,28 @@
 	<string>1.0</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	<key>CFBundleIconFiles</key>
+	<array>
+		<string>appicon.png</string>
+	</array>
+	<key>UISupportedInterfaceOrientations~ipad</key>
+	<array>
+		<string>UIInterfaceOrientationPortrait</string>
+		<string>UIInterfaceOrientationPortraitUpsideDown</string>
+		<string>UIInterfaceOrientationLandscapeLeft</string>
+		<string>UIInterfaceOrientationLandscapeRight</string>
+	</array>
+	<key>UISupportedInterfaceOrientations</key>
+	<array>
+		<string>UIInterfaceOrientationPortrait</string>
+	</array>
+	<key>UIStatusBarStyle</key>
+	<string>UIStatusBarStyleDefault</string>
+	<key>UIAppFonts</key>
+	<array>
+		<string>swz721t.ttf</string>
+		<string>swz721ti.ttf</string>
+	</array>
         <key>CFBundleIconFiles</key>
         <array>
 	<string>appicon.png</string>

@@ -58,7 +58,7 @@ var createFooterMenu = function () {
   // Footer menu behavior
   footerMenu.addEventListener('click', function ( e ) {
     if ( footerMenuOpened === false ) {
-      footerMenu.animate({bottom: 0, duration: 1000});
+      footerMenu.animate({bottom: 0, duration: 700});
       footerMenuOpened = true;
     } else {
       footerMenu.animate({bottom: footerMenu.bottom, duration: 700});

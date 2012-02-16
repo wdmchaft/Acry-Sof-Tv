@@ -7,7 +7,14 @@ clearDashboard();
 // Main window
 var main = Ti.UI.createWindow({
 	backgroundImage: 'img/background_menu.png',
-	orientationModes: [Ti.UI.PORTRAIT]
+	orientationModes: [Ti.UI.PORTRAIT],
+	opacity: 0,
+	width: 768,
+	left: -768
+});
+
+main.addEventListener('focus', function () {
+	main.animate({opacity: 1, left: 0, duration: 500});
 });
 
 // Area for the content
@@ -28,7 +35,8 @@ var populateMenu = function ( itens ) {
 		color: '#9284be',
 		right: 25
 	}
-		
+	
+	// Item
 	menu['item01'] = Ti.UI.createView({
 		top: 0,
 		right: 0,
@@ -37,6 +45,7 @@ var populateMenu = function ( itens ) {
 	});
 	contentArea.add(menu.item01);
 
+	// Content
 	menu['content01'] = Ti.UI.createLabel({
 		text: 'Editorial',
 		width: 'auto',
@@ -45,10 +54,12 @@ var populateMenu = function ( itens ) {
 		color: menuSets.color,
 		textAlign: 'right',
 		top: 0,
-		right: menuSets.right
+		right: menuSets.right,
+		basePath: 'editorial.js'
 	});
 	menu.item01.add(menu.content01);
 
+	// Item
 	menu['item02'] = Ti.UI.createView({
 		top: menuItemHeight,
 		right: 0,
@@ -57,6 +68,7 @@ var populateMenu = function ( itens ) {
 	});
 	contentArea.add(menu.item02);
 
+	// Content
 	menu['content02'] = Ti.UI.createLabel({
 		text: 'Catarata',
 		width: 'auto',
@@ -65,10 +77,12 @@ var populateMenu = function ( itens ) {
 		color: menuSets.color,
 		textAlign: 'right',
 		top: 0,
-		right: menuSets.right
+		right: menuSets.right,
+		basePath: 'section1.js'
 	});
 	menu.item02.add(menu.content02);
 	
+	// Item
 	menu['item03'] = Ti.UI.createView({
 		top: menuItemHeight*2,
 		right: 0,
@@ -77,6 +91,7 @@ var populateMenu = function ( itens ) {
 	});
 	contentArea.add(menu.item03);
 
+	// Content
 	menu['content03'] = Ti.UI.createLabel({
 		text: 'AcrySof® IQ ReSTOR®',
 		width: 'auto',
@@ -85,10 +100,12 @@ var populateMenu = function ( itens ) {
 		color: menuSets.color,
 		textAlign: 'right',
 		top: 0,
-		right: menuSets.right
+		right: menuSets.right,
+		basePath: 'section2.js'
 	});
 	menu.item03.add(menu.content03);
 
+	// Item
 	menu['item04'] = Ti.UI.createView({
 		top: menuItemHeight*3,
 		right: 0,
@@ -97,6 +114,7 @@ var populateMenu = function ( itens ) {
 	});
 	contentArea.add(menu.item04);
 
+	// Content
 	menu['content04'] = Ti.UI.createLabel({
 		text: 'AcrySof® IQ Toric',
 		width: 'auto',
@@ -105,10 +123,12 @@ var populateMenu = function ( itens ) {
 		color: menuSets.color,
 		textAlign: 'right',
 		top: 0,
-		right: menuSets.right
+		right: menuSets.right,
+		basePath: 'section3.js'
 	});
 	menu.item04.add(menu.content04);
 
+	// Item
 	menu['item05'] = Ti.UI.createView({
 		top: menuItemHeight*4,
 		right: 0,
@@ -117,6 +137,7 @@ var populateMenu = function ( itens ) {
 	});
 	contentArea.add(menu.item05);
 
+	// Content
 	menu['content05'] = Ti.UI.createLabel({
 		text: 'AcrySof® IQ',
 		width: 'auto',
@@ -125,10 +146,12 @@ var populateMenu = function ( itens ) {
 		color: menuSets.color,
 		textAlign: 'right',
 		top: 0,
-		right: menuSets.right
+		right: menuSets.right,
+		basePath: 'section4.js'
 	});
 	menu.item05.add(menu.content05);
 
+	// Item
 	menu['item06'] = Ti.UI.createView({
 		top: menuItemHeight*5,
 		right: 0,
@@ -137,6 +160,7 @@ var populateMenu = function ( itens ) {
 	});
 	contentArea.add(menu.item06);
 
+	// Content
 	menu['content06'] = Ti.UI.createLabel({
 		text: 'AcrySof® IQ ReSTOR® Toric',
 		width: 'auto',
@@ -145,10 +169,12 @@ var populateMenu = function ( itens ) {
 		color: menuSets.color,
 		textAlign: 'right',
 		top: 0,
-		right: menuSets.right
+		right: menuSets.right,
+		basePath: 'section5.js'
 	});
 	menu.item06.add(menu.content06);
 
+	// Item
 	menu['item07'] = Ti.UI.createView({
 		top: menuItemHeight*6,
 		right: 0,
@@ -157,6 +183,7 @@ var populateMenu = function ( itens ) {
 	});
 	contentArea.add(menu.item07);
 
+	// Content
 	menu['content07'] = Ti.UI.createLabel({
 		text: 'Qualidade AcrySof® ASFÉRICA',
 		width: 'auto',
@@ -165,9 +192,25 @@ var populateMenu = function ( itens ) {
 		color: menuSets.color,
 		textAlign: 'right',
 		top: 0,
-		right: menuSets.right
+		right: menuSets.right,
+		basePath: 'section6.js'
 	});
 	menu.item07.add(menu.content07);
+
+	// Add click on the itens in the menu
+	for ( var i in menu ) {
+		if ( i.search('content') > -1 )
+			menu[i].addEventListener('click', function () {
+				// Create a new window
+				var newWindow = Ti.UI.createWindow({
+					left: -800,
+			    	url: this.basePath
+			    });
+			    // Close old window and open the new
+			    main.close();
+			    newWindow.open();
+			});
+	}
 };
 populateMenu(7);
 
