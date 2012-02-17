@@ -9,7 +9,8 @@ var main = Ti.UI.createWindow({
 	orientationModes: [Ti.UI.PORTRAIT],
 	opacity: 0,
 	width: 768,
-	left: -768
+	left: -768,
+	title: 'editorial'
 });
 
 main.addEventListener('focus', function () {

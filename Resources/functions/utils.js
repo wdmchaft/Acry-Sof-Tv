@@ -44,6 +44,7 @@ var createNavigationButton = function ( settings, eventName, eventFunction ) {
 
 // Create the standart footer menu
 var createFooterMenu = function () {
+  
   var footerMenu = Ti.UI.createView({
       width: 768,
       height: 235,
@@ -59,19 +60,32 @@ var createFooterMenu = function () {
       'AcrySof® IQ ReSTOR®',
       'AcrySof® IQ Toric',
       'AcrySof® IQ',
+    ], 
+    paths: [
+      'editorial.js',
+      'section1.js',
+      'section2.js',
+      'section3.js',
+      'section4.js',
+      'section5.js',
+      'section6.js'
     ]
   };
 
-  var menu = {}; // Menu itens
+  // Menu itens
+  var menu = {};
   
+  // Default configuration for the menu itens
   var menuSets = {
     left: 125,
     right: 125,
     color: '#fff',
     leftIndicator: 20,
-    topIndicator: [8, 40, 70, 100, 130]
+    topIndicator: [8, 40, 70, 100, 130],
+    indexPosition: 100
   };
 
+  // Default configuration for the mark at the last position in the item in modal menu
   var indicatorSet = {
     width: 16,
     height: 14,
@@ -79,6 +93,22 @@ var createFooterMenu = function () {
     top: 0,
     left: 0
   };
+
+  // For itens who change
+  var changingItem = {};
+
+  if ( typeof main !== 'undefined' ) {
+    if ( typeof main.title !== 'undefined') {
+      if ( main.title.search('editorial') > -1 ) {
+        changingItem['title'] = 'Menu';
+        changingItem['url'] = 'menu.js'
+      }
+    }
+  }
+
+  // Change the default value for a mutables values
+  context.menu[0] = changingItem.title || context.menu[0];
+  context.paths[0] = changingItem.url || context.paths[0];
 
   var leftMenuBlock = Ti.UI.createView({
     width: 210,
@@ -116,12 +146,6 @@ var createFooterMenu = function () {
   menu.indicator5.top = menuSets.topIndicator[4];
   leftMenuBlock.add(menu.indicator5);
 
-  for ( indicator in menu ) {
-    if ( indicator.search('indicator') > -1 ) {
-      Ti.API.info(indicator);
-    } 
-  }
-
   // Context in the menu
   menu['context1'] = Ti.UI.createLabel({
     text: context.menu[0],
@@ -129,7 +153,9 @@ var createFooterMenu = function () {
     height: 30,
     top: 0,
     left: menuSets.leftIndicator,
-    color: menuSets.color
+    color: menuSets.color,
+    zIndex: menuSets.indexPosition,
+    basePath: context.paths[0],
   });
   leftMenuBlock.add(menu.context1);
 
@@ -140,7 +166,9 @@ var createFooterMenu = function () {
     height: 30,
     top: 30,
     left: menuSets.leftIndicator,
-    color: menuSets.color
+    color: menuSets.color,
+    zIndex: menuSets.indexPosition,
+    basePath: context.paths[1],
   });
   leftMenuBlock.add(menu.context2);
 
@@ -151,7 +179,9 @@ var createFooterMenu = function () {
     height: 30,
     top: 60,
     left: menuSets.leftIndicator,
-    color: menuSets.color
+    color: menuSets.color,
+    zIndex: menuSets.indexPosition,
+    basePath: context.paths[2],
   });
   leftMenuBlock.add(menu.context3);
 
@@ -162,7 +192,9 @@ var createFooterMenu = function () {
     height: 30,
     top: 90,
     left: menuSets.leftIndicator,
-    color: menuSets.color
+    color: menuSets.color,
+    zIndex: menuSets.indexPosition,
+    basePath: context.paths[3],
   });
   leftMenuBlock.add(menu.context4);
   
@@ -173,9 +205,26 @@ var createFooterMenu = function () {
     height: 30,
     top: 120,
     left: menuSets.leftIndicator,
-    color: menuSets.color
+    color: menuSets.color,
+    zIndex: menuSets.indexPosition,
+    basePath: context.paths[4],
   });
   leftMenuBlock.add(menu.context5);
+
+  // Actions for the itens in the menu
+  for ( indicator in menu ) {
+    if ( indicator.search('context') > -1 ) {
+      menu[indicator].addEventListener('click', function () {
+        // Create a new window
+        var newWindow = Ti.UI.createWindow({
+          url: this.basePath
+        });
+        // Close old window and open the new
+        main.close();
+        newWindow.open();        
+      });
+    } 
+  }
 
 
   var footerMenuOpened = false;

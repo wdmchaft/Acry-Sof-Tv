@@ -10,7 +10,8 @@ var main = Ti.UI.createWindow({
 	orientationModes: [Ti.UI.PORTRAIT],
 	opacity: 0,
 	width: 768,
-	left: -768
+	left: -768,
+	title: 'menu'
 });
 
 main.addEventListener('focus', function () {
@@ -203,7 +204,6 @@ var populateMenu = function ( itens ) {
 			menu[i].addEventListener('click', function () {
 				// Create a new window
 				var newWindow = Ti.UI.createWindow({
-					left: -800,
 			    	url: this.basePath
 			    });
 			    // Close old window and open the new
