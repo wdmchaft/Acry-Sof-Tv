@@ -214,10 +214,5 @@ var populateMenu = function ( itens ) {
 };
 populateMenu(7);
 
-
-// Main footer menu
-var footerMainMenu = createFooterMenu();
-main.add(footerMainMenu);
-
 // Open the main window
 main.open();

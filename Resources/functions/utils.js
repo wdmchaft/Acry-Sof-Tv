@@ -45,24 +45,151 @@ var createNavigationButton = function ( settings, eventName, eventFunction ) {
 // Create the standart footer menu
 var createFooterMenu = function () {
   var footerMenu = Ti.UI.createView({
-    width: 768,
-    height: 235,
-    backgroundImage: defaultStyle.menu.footerBgImg,
-    opacity: 0.75,
-    bottom: -180
-  });
+      width: 768,
+      height: 235,
+      backgroundImage: defaultStyle.menu.footerBgImg,
+      opacity: 0.8,
+      bottom: -180
+    });
+
+  var context = {
+    menu: [
+      'Editorial',
+      'Catarata',
+      'AcrySof® IQ ReSTOR®',
+      'AcrySof® IQ Toric',
+      'AcrySof® IQ',
+    ]
+  };
+
+  var menu = {}; // Menu itens
   
+  var menuSets = {
+    left: 125,
+    right: 125,
+    color: '#fff',
+    leftIndicator: 20,
+    topIndicator: [8, 40, 70, 100, 130]
+  };
+
+  var indicatorSet = {
+    width: 16,
+    height: 14,
+    backgroundImage: 'img/mark.png',
+    top: 0,
+    left: 0
+  };
+
+  var leftMenuBlock = Ti.UI.createView({
+    width: 210,
+    height: 150,
+    top: 60,
+    left: menuSets.left
+  });
+  footerMenu.add(leftMenuBlock);
+
+  var rightMenuBlock = Ti.UI.createView({
+    width: 210,
+    height: 150,
+    top: 60,
+    right: menuSets.right
+  });
+  footerMenu.add(leftMenuBlock);
+  
+  menu['indicator1'] = Ti.UI.createView(indicatorSet);
+  menu.indicator1.top = menuSets.topIndicator[0];
+  leftMenuBlock.add(menu.indicator1);
+
+  menu['indicator2'] = Ti.UI.createView(indicatorSet);
+  menu.indicator2.top = menuSets.topIndicator[1];
+  leftMenuBlock.add(menu.indicator2);
+
+  menu['indicator3'] = Ti.UI.createView(indicatorSet);
+  menu.indicator3.top = menuSets.topIndicator[2];
+  leftMenuBlock.add(menu.indicator3);
+
+  menu['indicator4'] = Ti.UI.createView(indicatorSet);
+  menu.indicator4.top = menuSets.topIndicator[3];
+  leftMenuBlock.add(menu.indicator4);
+
+  menu['indicator5'] = Ti.UI.createView(indicatorSet);
+  menu.indicator5.top = menuSets.topIndicator[4];
+  leftMenuBlock.add(menu.indicator5);
+
+  for ( indicator in menu ) {
+    if ( indicator.search('indicator') > -1 ) {
+      Ti.API.info(indicator);
+    } 
+  }
+
+  // Context in the menu
+  menu['context1'] = Ti.UI.createLabel({
+    text: context.menu[0],
+    width: 200,
+    height: 30,
+    top: 0,
+    left: menuSets.leftIndicator,
+    color: menuSets.color
+  });
+  leftMenuBlock.add(menu.context1);
+
+  // Context in the menu
+  menu['context2'] = Ti.UI.createLabel({
+    text: context.menu[1],
+    width: 200,
+    height: 30,
+    top: 30,
+    left: menuSets.leftIndicator,
+    color: menuSets.color
+  });
+  leftMenuBlock.add(menu.context2);
+
+  // Context in the menu
+  menu['context3'] = Ti.UI.createLabel({
+    text: context.menu[2],
+    width: 200,
+    height: 30,
+    top: 60,
+    left: menuSets.leftIndicator,
+    color: menuSets.color
+  });
+  leftMenuBlock.add(menu.context3);
+
+  // Context in the menu
+  menu['context4'] = Ti.UI.createLabel({
+    text: context.menu[3],
+    width: 200,
+    height: 30,
+    top: 90,
+    left: menuSets.leftIndicator,
+    color: menuSets.color
+  });
+  leftMenuBlock.add(menu.context4);
+  
+  // Context in the menu
+  menu['context5'] = Ti.UI.createLabel({
+    text: context.menu[4],
+    width: 200,
+    height: 30,
+    top: 120,
+    left: menuSets.leftIndicator,
+    color: menuSets.color
+  });
+  leftMenuBlock.add(menu.context5);
+
 
   var footerMenuOpened = false;
 
   // Footer menu behavior
   footerMenu.addEventListener('click', function ( e ) {
-    if ( footerMenuOpened === false ) {
-      footerMenu.animate({bottom: 0, duration: 700});
-      footerMenuOpened = true;
-    } else {
-      footerMenu.animate({bottom: footerMenu.bottom, duration: 700});
-      footerMenuOpened = false;
+    if ( e.x > 330 && e.x < 442 &&  e.y > 9 && e.y < 50 ) {
+      if ( footerMenuOpened === false ) {
+        footerMenu.animate({bottom: 0, duration: 700});
+        footerMenuOpened = true;
+      } else {
+        footerMenu.animate({bottom: footerMenu.bottom, duration: 700});
+        footerMenuOpened = false;
+      }
     }
   });
 
