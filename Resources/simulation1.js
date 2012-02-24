@@ -14,8 +14,19 @@ var main = Ti.UI.createWindow({
 	title: 'catarata'
 });
 
+var section = { 
+	touchFlag: true 
+};
+
 main.addEventListener('focus', function () {
 	main.animate({opacity: 1, left: 0, duration: 500});
+
+	// Animate inner content
+	simulation.animate({opacity: 1, duration: 800}, function () {
+		headerTitle.view.animate({top: 0, opacity: 1, duration: 600}, function () {
+			section.touchFlag = false;
+		});
+	});
 });
 
 // Title
@@ -55,6 +66,43 @@ var previousButton = createNavigationButton({
           newWindow.open();
 });
 main.add(previousButton);
+
+// Inner content
+var body = Ti.UI.createView({
+	top: 160,
+	left: 110,
+	width: 550,
+	height: 760
+});
+main.add(body);
+
+var headerTitle = makeTitle({
+	view: {
+		top: 0,
+		left: 0,
+		width: 550,
+		height: 65,
+		top: 70,
+		opacity: 0,
+		backgroundImage:'img/header_description_bg.png'		
+	},
+	title: {
+		text: 'Visão com catarata',
+		color: '#9284be',
+		top: 10,
+		font: { fontSize: 28 },
+		textAlign: 'center',
+		width: 'auto',
+		height: 'auto'
+	}
+});
+body.add(headerTitle.view);
+
+var simulation = Ti.UI.createImageView({
+	image: 'img/simulation_catarata_before.png',
+	opacity: 0
+});
+body.add(simulation);
 
 // Main footer menu
 var footerMainMenu = createFooterMenu();

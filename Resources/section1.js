@@ -14,6 +14,14 @@ var main = Ti.UI.createWindow({
 	title: 'catarata'
 });
 
+// For idicate the section, for modify the content
+var section = {
+	name: 'catarata',
+	indication: 1,
+	simulationPath: 'simulation1.js',
+	clickFlag: true
+};
+
 main.addEventListener('focus', function () {
 	main.animate({opacity: 1, left: 0, duration: 500});
 	
@@ -21,17 +29,10 @@ main.addEventListener('focus', function () {
 	bodyHeaderContent.view.animate({opacity: 1, duration: 800}, function () {
 		bodyImg.animate({opacity: 1, duration: 600}, function () {
 			imgDescription.view.animate({bottom: 0, opacity: 1, duration: 600});
+			section.clickFlag = false;
 		});
 	});
 });
-
-// For idicate the section, for modify the content
-var section = {
-	name: 'catarata',
-	indication: 1,
-	simulationPath: 'simulation1.js',
-	clickFlag: false
-};
 
 // Next button to leave this page
 var nextButton = createNavigationButton({
