@@ -51,6 +51,11 @@ var mainTitle = Ti.UI.createLabel({
 });
 main.add(mainTitle);
 
+// For idicate the section, for modify the content
+var section = {
+	indication: 1
+};
+
 // Inner content
 var body = Ti.UI.createView({
 	top: 120,
