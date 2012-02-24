@@ -20,7 +20,7 @@ main.addEventListener('focus', function () {
 	// Animate inner content
 	bodyHeaderContent.view.animate({opacity: 1, duration: 800}, function () {
 		bodyImg.animate({opacity: 1, duration: 600}, function () {
-			imgDescription.view.animate({bottom: 0, opacity: 0.7, duration: 600});
+			imgDescription.view.animate({bottom: 0, opacity: 1, duration: 600});
 		});
 	});
 });
@@ -28,7 +28,9 @@ main.addEventListener('focus', function () {
 // For idicate the section, for modify the content
 var section = {
 	name: 'catarata',
-	indication: 1
+	indication: 1,
+	simulationPath: 'simulation1.js',
+	clickFlag: false
 };
 
 // Next button to leave this page
@@ -43,19 +45,31 @@ var nextButton = createNavigationButton({
 		opacity: 0
 	}
 }, 'click', function () {
-	    // go to next section into the catarata
-	    if ( section.indication < 4 ) {
-		    imgDescription.view.animate({opacity: 0, bottom: 135, duration: 800}, function () {
-				bodyImg.animate({opacity: 0, duration: 600}, function () {
-					section.indication++;
-		    		hasSection({section: section});
-		    		verifySectionButtons({section: section});
+		if ( section.clickFlag === false ) {
+			section.clickFlag = true;
+		    // go to next section into the catarata
+		    if ( section.indication < 4 ) {
+			    imgDescription.view.animate({opacity: 0, bottom: 135, duration: 800}, function () {
+					bodyImg.animate({opacity: 0, duration: 600}, function () {
+						section.indication++;
+			    		hasSection({section: section});
+			    		verifySectionButtons({section: section});
 
-		    		bodyImg.animate({opacity: 1, duration: 1000}, function () {
-		    			imgDescription.view.animate({opacity: 1, bottom: 0, duration: 600});
-		    		});
+			    		bodyImg.animate({opacity: 1, duration: 600}, function () {
+			    			imgDescription.view.animate({bottom: 0, opacity: 1, duration: 600});
+			    			section.clickFlag = false;
+			    		});
+					});
 				});
-			});
+			} else {
+				// Create a new window
+		        var newWindow = Ti.UI.createWindow({
+		          url: section.simulationPath
+		        });
+		        // Close old window and open the new
+		        main.close();
+		        newWindow.open();
+			}
 		}
 });
 main.add(nextButton);
@@ -72,19 +86,23 @@ var previousButton = createNavigationButton({
 		opacity: 0
 	}
 }, 'click', function () {
-	    // go to next section into the catarata
-	    if ( section.indication > 1 ) {
-		    imgDescription.view.animate({opacity: 0, bottom: 135, duration: 800}, function () {
-				bodyImg.animate({opacity: 0, duration: 600}, function () {
-					section.indication--;
-		    		hasSection({section: section});
-		    		verifySectionButtons({section: section});
+		if ( section.clickFlag === false ) {
+			section.clickFlag = true;
+		    // go to next section into the catarata
+		    if ( section.indication > 1 ) {
+			    imgDescription.view.animate({opacity: 0, bottom: 135, duration: 800}, function () {
+					bodyImg.animate({opacity: 0, duration: 600}, function () {
+						section.indication--;
+			    		hasSection({section: section});
+			    		verifySectionButtons({section: section});
 
-		    		bodyImg.animate({opacity: 1, duration: 1000}, function () {
-		    			imgDescription.view.animate({opacity: 1, bottom: 0, duration: 600});
-		    		});
+			    		bodyImg.animate({opacity: 1, duration: 600}, function () {
+			    			imgDescription.view.animate({bottom: 0, opacity: 1, duration: 600});
+			    			section.clickFlag = false;
+			    		});
+					});
 				});
-			});
+			}
 		}
 });
 main.add(previousButton);

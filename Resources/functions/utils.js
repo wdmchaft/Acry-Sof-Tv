@@ -47,13 +47,13 @@ var verifySectionButtons = function ( definitions ) {
       previousButton.animate({opacity: 0, duration: 500}, function () {
         previousButton.hide();
       });
-    } if ( definitions.section.indication >= 4 ) {
+    } if ( definitions.section.indication >= 5 ) {
       nextButton.animate({opacity: 0, duration: 500}, function () {
         nextButton.hide();
       });
     }
 
-    if ( definitions.section.indication < 4 ) {
+    if ( definitions.section.indication < 5 ) {
         nextButton.show();
         nextButton.animate({opacity: 1, duration: 500});
     } if ( definitions.section.indication > 1 ) {
@@ -369,23 +369,6 @@ function info( message ) {
   return Ti.API.info( message );
 }
 
-function hasSection ( context, comparison, child ) {
-  // section verify and return the title
-  context = context || false;
-  comparison = comparison || false;
-  child = child || false;
-
-  if ( context && comparison && child ) {
-    for ( var i = 0; i < context.length; i++ ) {
-      if ( context[i][child] === comparison[child] ) {
-        return context[i][child];
-      } else {
-        return false;
-      }
-    }
-  }
-}
-
 // transition with fade effect
 var transitionEffect = function ( settings ) {
     // Control the effect
@@ -484,7 +467,7 @@ var hasSection = function ( definitions ) {
 
         imgDescription.label.text = 'Cristalino Opacificado';
 
-      } if ( section.indication === 2 ) {
+      } if ( definitions.section.indication === 2 ) {
         bodyHeaderContent.title.text = 'A moderna cirurgia';
         bodyHeaderContent.subtitle.text = 'que pode mudar a sua vida';
 
@@ -492,7 +475,7 @@ var hasSection = function ( definitions ) {
         
         imgDescription.label.text = 'O cirurgião utilizará uma técnica chamada \n facoemulsificação, através da qual o \n cristalino é fragmentado e aspirado.';
 
-      } if ( section.indication === 3 ) {
+      } if ( definitions.section.indication === 3 ) {
         bodyHeaderContent.title.text = 'A moderna cirurgia';
         bodyHeaderContent.subtitle.text = 'que pode mudar a sua vida';
 
@@ -500,7 +483,7 @@ var hasSection = function ( definitions ) {
 
         imgDescription.label.text = 'Após a remoção do cristalino, a lente é \n implantada para restaurar sua visão.';
 
-      } if ( section.indication === 4 ) {
+      } if ( definitions.section.indication === 4 ) {
         bodyHeaderContent.title.text = 'A moderna cirurgia';
         bodyHeaderContent.subtitle.text = 'que pode mudar a sua vida';
 
