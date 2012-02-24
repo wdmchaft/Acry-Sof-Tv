@@ -10,7 +10,7 @@ var sectionContent = {
 var defaultStyle = {
   navigation: {
     button: {
-      prevBgImg: '',
+      prevBgImg: 'img/button_backward.png',
       nextBgImg: 'img/button_forward.png'
     }
   },
@@ -40,6 +40,26 @@ var createNavigationButton = function ( settings, eventName, eventFunction ) {
   Btn.addEventListener( eventName, eventFunction);
 
   return Btn;
+};
+
+var verifySectionButtons = function ( definitions ) {
+    if ( definitions.section.indication <= 1 ) {
+      previousButton.animate({opacity: 0, duration: 500}, function () {
+        previousButton.hide();
+      });
+    } if ( definitions.section.indication >= 4 ) {
+      nextButton.animate({opacity: 0, duration: 500}, function () {
+        nextButton.hide();
+      });
+    }
+
+    if ( definitions.section.indication < 4 ) {
+        nextButton.show();
+        nextButton.animate({opacity: 1, duration: 500});
+    } if ( definitions.section.indication > 1 ) {
+        previousButton.show();
+        previousButton.animate({opacity: 1, duration: 500});
+    }
 };
 
 // Create the standart footer menu
@@ -424,7 +444,11 @@ var makeTitle = function ( settings ) {
     view.add(title);
     view.add(subtitle);
 
-    return view;
+    return {
+      view: view,
+      title: title,
+      subtitle: subtitle
+    };
   }
 };
 
@@ -438,7 +462,54 @@ var makeImageDescription = function ( settings ) {
 
     view.add(description);
 
-    return view;
+    return {
+      view: view,
+      label: description
+    };
+  }
+};
+
+
+// Verify the content
+var hasSection = function ( definitions ) {
+  definitions = definitions || {};
+
+  if ( definitions ) {
+    if ( definitions.section.name === 'catarata' ) {
+      if ( definitions.section.indication === 1 ) {
+        bodyHeaderContent.title.text = 'A moderna cirurgia';
+        bodyHeaderContent.subtitle.text = 'que pode mudar a sua vida';
+
+        bodyImg.image = 'img/section_catarata_01.png';
+
+        imgDescription.label.text = 'Cristalino Opacificado';
+
+      } if ( section.indication === 2 ) {
+        bodyHeaderContent.title.text = 'A moderna cirurgia';
+        bodyHeaderContent.subtitle.text = 'que pode mudar a sua vida';
+
+        bodyImg.image = 'img/section_catarata_02.png';
+        
+        imgDescription.label.text = 'O cirurgião utilizará uma técnica chamada \n facoemulsificação, através da qual o \n cristalino é fragmentado e aspirado.';
+
+      } if ( section.indication === 3 ) {
+        bodyHeaderContent.title.text = 'A moderna cirurgia';
+        bodyHeaderContent.subtitle.text = 'que pode mudar a sua vida';
+
+        bodyImg.image = 'img/section_catarata_03.png';
+
+        imgDescription.label.text = 'Após a remoção do cristalino, a lente é \n implantada para restaurar sua visão.';
+
+      } if ( section.indication === 4 ) {
+        bodyHeaderContent.title.text = 'A moderna cirurgia';
+        bodyHeaderContent.subtitle.text = 'que pode mudar a sua vida';
+
+        bodyImg.image = 'img/section_catarata_04.png';
+
+        imgDescription.label.text = 'Após a cirurgia, você aguardará a \n liberação do médico e, em seguida,\n poderá ir para casa.';
+
+      }
+    }
   }
 };
 

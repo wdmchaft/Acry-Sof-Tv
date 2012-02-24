@@ -16,8 +16,20 @@ var main = Ti.UI.createWindow({
 
 main.addEventListener('focus', function () {
 	main.animate({opacity: 1, left: 0, duration: 500});
-	imgDescription.animate({bottom: 0, opacity: 0.8, duration: 800});
+	
+	// Animate inner content
+	bodyHeaderContent.view.animate({opacity: 1, duration: 800}, function () {
+		bodyImg.animate({opacity: 1, duration: 600}, function () {
+			imgDescription.view.animate({bottom: 0, opacity: 0.7, duration: 600});
+		});
+	});
 });
+
+// For idicate the section, for modify the content
+var section = {
+	name: 'catarata',
+	indication: 1
+};
 
 // Next button to leave this page
 var nextButton = createNavigationButton({
@@ -27,13 +39,58 @@ var nextButton = createNavigationButton({
 		right: 30,
 		backgroundImage: defaultStyle.navigation.button.nextBgImg,
 		width: 60,
-		height: 114
+		height: 114,
+		opacity: 0
 	}
 }, 'click', function () {
 	    // go to next section into the catarata
-	    Ti.API.info('Show your moves.');
+	    if ( section.indication < 4 ) {
+		    imgDescription.view.animate({opacity: 0, bottom: 135, duration: 800}, function () {
+				bodyImg.animate({opacity: 0, duration: 600}, function () {
+					section.indication++;
+		    		hasSection({section: section});
+		    		verifySectionButtons({section: section});
+
+		    		bodyImg.animate({opacity: 1, duration: 1000}, function () {
+		    			imgDescription.view.animate({opacity: 1, bottom: 0, duration: 600});
+		    		});
+				});
+			});
+		}
 });
 main.add(nextButton);
+
+// Next button to leave this page
+var previousButton = createNavigationButton({
+	button: {
+		title: '',
+		top: 35,
+		right: 100,
+		backgroundImage: defaultStyle.navigation.button.prevBgImg,
+		width: 60,
+		height: 114,
+		opacity: 0
+	}
+}, 'click', function () {
+	    // go to next section into the catarata
+	    if ( section.indication > 1 ) {
+		    imgDescription.view.animate({opacity: 0, bottom: 135, duration: 800}, function () {
+				bodyImg.animate({opacity: 0, duration: 600}, function () {
+					section.indication--;
+		    		hasSection({section: section});
+		    		verifySectionButtons({section: section});
+
+		    		bodyImg.animate({opacity: 1, duration: 1000}, function () {
+		    			imgDescription.view.animate({opacity: 1, bottom: 0, duration: 600});
+		    		});
+				});
+			});
+		}
+});
+main.add(previousButton);
+
+// Verify buttons in this section
+verifySectionButtons({section: section});
 
 // Title
 var mainTitle = Ti.UI.createLabel({
@@ -50,11 +107,6 @@ var mainTitle = Ti.UI.createLabel({
 	}
 });
 main.add(mainTitle);
-
-// For idicate the section, for modify the content
-var section = {
-	indication: 1
-};
 
 // Inner content
 var body = Ti.UI.createView({
@@ -74,7 +126,8 @@ var bodyHeaderContent = makeTitle({
 	view: {
 		top: 25,
 		left: 20,
-		height: 65
+		height: 65,
+		opacity: 0
 	},
 	title: {
 		text: headerContent.title,
@@ -95,11 +148,16 @@ var bodyHeaderContent = makeTitle({
 		height: 'auto'
 	}
 });
-body.add(bodyHeaderContent);
+body.add(bodyHeaderContent.view);
+
+var bodyContent = {
+	img: 'img/section_catarata_01.png'
+}
 
 var bodyImg = Ti.UI.createImageView({
-	image: 'img/section_catarata_01.png',
+	image: bodyContent.img,
 	top: 0,
+	opacity: 0,
 	zIndex: 10
 });
 body.add(bodyImg);
@@ -126,7 +184,8 @@ var imgDescription = makeImageDescription({
 		font: { fontSize: 24 }
 	}
 });
-body.add(imgDescription);
+body.add(imgDescription.view);
+imgDescription.view.add(imgDescription.label);
 
 // Main footer menu
 var footerMainMenu = createFooterMenu();
