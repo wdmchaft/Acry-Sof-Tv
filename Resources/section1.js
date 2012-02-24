@@ -16,7 +16,24 @@ var main = Ti.UI.createWindow({
 
 main.addEventListener('focus', function () {
 	main.animate({opacity: 1, left: 0, duration: 500});
+	imgDescription.animate({bottom: 0, opacity: 0.8, duration: 800});
 });
+
+// Next button to leave this page
+var nextButton = createNavigationButton({
+	button: {
+		title: '',
+		top: 35,
+		right: 30,
+		backgroundImage: defaultStyle.navigation.button.nextBgImg,
+		width: 60,
+		height: 114
+	}
+}, 'click', function () {
+	    // go to next section into the catarata
+	    Ti.API.info('Show your moves.');
+});
+main.add(nextButton);
 
 // Title
 var mainTitle = Ti.UI.createLabel({
@@ -33,6 +50,78 @@ var mainTitle = Ti.UI.createLabel({
 	}
 });
 main.add(mainTitle);
+
+// Inner content
+var body = Ti.UI.createView({
+	top: 120,
+	left: 110,
+	width: 550,
+	height: 820,
+});
+main.add(body);
+
+var headerContent = {
+	title: 'A moderna cirurgia',
+	subtitle: 'que pode mudar a sua vida'
+};
+
+var bodyHeaderContent = makeTitle({
+	view: {
+		top: 25,
+		left: 20,
+		height: 65
+	},
+	title: {
+		text: headerContent.title,
+		color: '#9284be',
+		top: 0,
+		left: 0,
+		font: { fontSize: 28 },
+		width: 'auto',
+		height: 'auto'
+	},
+	subtitle: {
+		text: headerContent.subtitle,
+		color: '#fff',
+		top: 30,
+		left: 0,
+		font: { fontSize: 24 },
+		width: 'auto',
+		height: 'auto'
+	}
+});
+body.add(bodyHeaderContent);
+
+var bodyImg = Ti.UI.createImageView({
+	image: 'img/section_catarata_01.png',
+	top: 0,
+	zIndex: 10
+});
+body.add(bodyImg);
+
+var descriptionContent = {
+	text: 'Cristalino Opacificado'
+};
+
+var imgDescription = makeImageDescription({
+	view: {
+		backgroundImage: 'img/footer_description_bg.png',
+		height: 125,
+		width: 550,
+		bottom: 130,
+		left: 0,
+		opacity: 0
+	},
+	label: {
+		text: descriptionContent.text,
+		width: 'auto',
+		height: 'auto',
+		color: '#fff',
+		textAlign: 'center',
+		font: { fontSize: 24 }
+	}
+});
+body.add(imgDescription);
 
 // Main footer menu
 var footerMainMenu = createFooterMenu();
