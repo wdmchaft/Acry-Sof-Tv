@@ -87,7 +87,6 @@ var createFooterMenu = function () {
     paths: [
       'editorial.js',
       'section1.js',
-      //'simulation1.js',
       'section2.js',
       'section3.js',
       'section4.js',
