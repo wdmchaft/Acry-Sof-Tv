@@ -75,6 +75,16 @@ var nextButton = createNavigationButton({
 });
 main.add(nextButton);
 
+nextButton.addEventListener('longpress', function () {
+	// Create a new window
+    var newWindow = Ti.UI.createWindow({
+      url: section.simulationPath
+    });
+    // Close old window and open the new
+    main.close();
+    newWindow.open();
+});
+
 // Next button to leave this page
 var previousButton = createNavigationButton({
 	button: {

@@ -113,33 +113,33 @@ var touchSlide = function touchSlide( element, startX, endX, callback ) {
 	// Local function variables
 	var touchFlag = false;
 	var middleLeftX = endX/3;
-	var middleRightX = (endX/3)*2; 
+	var middleRightX = (endX/3)*2;
+	var defTime = 350;
 	var headerTitleContent = ['Visão com catarata', 'Visão sem catarata'];
 
 	if ( element ) {
 		element.addEventListener('touchstart', function touchEffectLeftRight( start ) {
-			Ti.API.info(start.x);
 			// Left to right touch
 			if ( start.x >= startX && start.x <= middleLeftX && touchFlag === false ) {
 				// Define with touch end stop, in the final of limit in the image view
 				element.addEventListener('touchend', function ( end ) {
 					if ( end.x >= middleRightX && end.x < endX && touchFlag === false ) {
 						setTimeout(function () {
-							headerTitle.title.animate({opacity: 0, duration: 800});
-							element.animate({opacity: 0, duration: 800});
+							headerTitle.view.animate({opacity: 0, duration: defTime});
+							element.animate({opacity: 0, duration: defTime});
 
 							setTimeout(function () {
 								headerTitle.title.text = headerTitleContent[1];
 								element.image = 'img/simulation_catarata_after.png';
 
 								setTimeout(function () {
-									headerTitle.title.animate({opacity: 1, duration: 800});
-									element.animate({opacity: 1, duration: 800}, function () {
+									headerTitle.view.animate({opacity: 1, duration: defTime});
+									element.animate({opacity: 1, duration: defTime}, function () {
 										touchFlag = true;
 									});
-								}, 200);
-							}, 1600);
-						}, 200);
+								}, defTime/5);
+							}, defTime*2);
+						}, defTime/5);
 					}
 				});
 			}
@@ -150,21 +150,21 @@ var touchSlide = function touchSlide( element, startX, endX, callback ) {
 				element.addEventListener('touchend', function ( end ) {
 					if ( end.x >= startX && end.x < middleLeftX && touchFlag === true ) {
 						setTimeout(function () {
-							headerTitle.title.animate({opacity: 0, duration: 800});
-							element.animate({opacity: 0, duration: 800});
+							headerTitle.view.animate({opacity: 0, duration: defTime});
+							element.animate({opacity: 0, duration: defTime});
 
 							setTimeout(function () {
-								headerTitle.title.text = headerTitleContent[1];
+								headerTitle.title.text = headerTitleContent[0];
 								element.image = 'img/simulation_catarata_before.png';
 
 								setTimeout(function () {
-									headerTitle.title.animate({opacity: 1, duration: 800});
-									element.animate({opacity: 1, duration: 800}, function () {
+									headerTitle.view.animate({opacity: 1, duration: defTime});
+									element.animate({opacity: 1, duration: defTime}, function () {
 										touchFlag = false;
 									});
-								}, 200);
-							}, 1600);
-						}, 200);
+								}, defTime/5);
+							}, defTime*2);
+						}, defTime/5);
 					}
 				});
 			}
@@ -174,8 +174,20 @@ var touchSlide = function touchSlide( element, startX, endX, callback ) {
 	return callback();
 };
 
-touchSlide( simulationContainer, 0, 545, function () {
-	setTimeout(function () {}, 200);
+//touchSlide( simulationContainer, 0, 545 );
+simulationContainer.addEventListener('touchmove', function ( e ) {
+	var total = 300*1000;
+	var calculate = 0;
+
+	calculate = e.x*1000/total;
+
+	if ( e.x > 300 ) {
+		calculate = 1;
+	} if ( e.x < 50 ) {
+		calculate = 0;
+	}
+
+	simulationContainer.animate({opacity: calculate});
 });
 // Final of the events
 
