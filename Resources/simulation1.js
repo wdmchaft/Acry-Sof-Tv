@@ -106,73 +106,77 @@ var simulationContainer = Ti.UI.createImageView({
 body.add(simulationContainer);
 
 // Event for simulation
-var touchSlide = function ( element, startX, endX ) {
+var touchSlide = function touchSlide( element, startX, endX, callback ) {
 	// Scope function variables
 	element = element || '';
+	callback = callback || function () {};
 	// Local function variables
 	var touchFlag = false;
-	var middleX = endX / 3;
+	var middleLeftX = endX/3;
+	var middleRightX = (endX/3)*2; 
 	var headerTitleContent = ['Visão com catarata', 'Visão sem catarata'];
 
 	if ( element ) {
 		element.addEventListener('touchstart', function touchEffectLeftRight( start ) {
+			Ti.API.info(start.x);
 			// Left to right touch
-			if ( start.x >= startX && start.x <= middleX && touchFlag === false ) {
+			if ( start.x >= startX && start.x <= middleLeftX && touchFlag === false ) {
 				// Define with touch end stop, in the final of limit in the image view
 				element.addEventListener('touchend', function ( end ) {
-					if ( end.x >= middleX && end.x < endX && touchFlag === false ) {
-						headerTitle.title.animate({opacity: 0, duration: 700}, function () {
+					if ( end.x >= middleRightX && end.x < endX && touchFlag === false ) {
+						setTimeout(function () {
+							headerTitle.title.animate({opacity: 0, duration: 800});
+							element.animate({opacity: 0, duration: 800});
 
-							element.animate({opacity: 0, duration: 700}, function () {
+							setTimeout(function () {
 								headerTitle.title.text = headerTitleContent[1];
 								element.image = 'img/simulation_catarata_after.png';
 
-								headerTitle.title.animate({opacity: 1, duration: 700}, function () {
-									element.animate({opacity: 1, duration: 700}, function () {
-										setTimeout(function () {
-											touchFlag = true;
-										}, 100);
-
-										return;
+								setTimeout(function () {
+									headerTitle.title.animate({opacity: 1, duration: 800});
+									element.animate({opacity: 1, duration: 800}, function () {
+										touchFlag = true;
 									});
-								});
-							});
-						});
+								}, 200);
+							}, 1600);
+						}, 200);
 					}
 				});
 			}
 
 			// Right to left touch
-			else if ( start.x >= middleX && start.x <= endX && touchFlag === true ) {
-				Ti.API.info('Start left X: ' + start.x);
+			if ( start.x >= middleRightX && start.x <= endX && touchFlag === true ) {
 				// Limit definition
 				element.addEventListener('touchend', function ( end ) {
-					if ( end.x >= startX && end.x < middleX && touchFlag === true ) {
-						headerTitle.title.animate({opacity: 0, duration: 700}, function () {
+					if ( end.x >= startX && end.x < middleLeftX && touchFlag === true ) {
+						setTimeout(function () {
+							headerTitle.title.animate({opacity: 0, duration: 800});
+							element.animate({opacity: 0, duration: 800});
 
-							element.animate({opacity: 0, duration: 700}, function () {
-								headerTitle.title.text = headerTitleContent[0];
-								element.image = 'img/simulation_catarata_after.png';
+							setTimeout(function () {
+								headerTitle.title.text = headerTitleContent[1];
+								element.image = 'img/simulation_catarata_before.png';
 
-								headerTitle.title.animate({opacity: 1, duration: 700}, function () {
-									element.animate({opacity: 1, duration: 700}, function () {
-										setTimeout(function () {
-											touchFlag = false;
-										}, 100);
-
-										return;
+								setTimeout(function () {
+									headerTitle.title.animate({opacity: 1, duration: 800});
+									element.animate({opacity: 1, duration: 800}, function () {
+										touchFlag = false;
 									});
-								});
-							});
-						});
+								}, 200);
+							}, 1600);
+						}, 200);
 					}
 				});
 			}
 		});
 	}
+
+	return callback();
 };
 
-touchSlide( simulationContainer, 0, 545 );
+touchSlide( simulationContainer, 0, 545, function () {
+	setTimeout(function () {}, 200);
+});
 // Final of the events
 
 // Main footer menu
