@@ -5,9 +5,26 @@ var db = Ti.Database.install('db/acrysof.sqlite', 'acrysofdb');
 
 var sectionContent = {
   editorial: getContextBy(db, 'section', 'id', 1),
+  
   section2: 'A partir dos 45 anos de idade, é comum as pessoas sentirem seus olhos perderem a capacidade de focalizar os objetos a diferentes distâncias. Isso pode trazer limitações' +
-  ' a atividades no trabalho e também no lazer.\n\n' +  
-  'A lente AcrySof ® IQ ReSTOR® traz a possibilidade de ver a vida com nitidez, seja de perto, a meia distância ou de longe. Estudos clínicos mostram que 80% dos pacientes que se submeteram ao implante de AcrySof ® IQ ReSTOR® nunca mais precisaram do uso dos óculos nas tarefas diárias.1'
+            ' a atividades no trabalho e também no lazer.\n\n' +  
+            'A lente AcrySof ® IQ ReSTOR® traz a possibilidade de ver a vida com nitidez, seja de perto, a meia distância ou de longe. Estudos clínicos mostram que 80% dos pacientes que se submeteram ao implante de AcrySof ® IQ ReSTOR® nunca mais precisaram do uso dos óculos nas tarefas dirias.1',
+  
+  section3: 'Uma pessoa que tem catarata e astigmatismo pode não recuperar a qualidade de visão de longe, mesmo após a cirurgia de remoção da catarata; a menos que o astigmatismo seja corrigido também.\n\n' +
+            'A lente AcrySof® IQ Toric traz a possibilidade de recuperar a qualidade de visão em um único passo e deixar de lado os óculos na maior parte' +
+            'do tempo.1',
+
+  section4: ' A lente AcrySof® IQ, com seu desenho asférico, traz a possibilidade de ver a vida com nitidez, tratando as aberrações visuais. Proporcione-se uma vida com visão de alto índice de detalhes' +
+            'e contrastes, graças à tecnologia no tratamento das aberrações visuais.',
+
+  section5: 'Tem quaeperes et et fugia vel eius dus ex es repudant autatis simet alit essequae seque' +
+            'ne pro moluptatiur alit laccum eum reperio. Ehent qui aut volorem fugiate mporument assi odiasimagnam eos vid qui ulpa volupta dicipsa ndenderias nobitia aut ommoluptat.' +
+            'Henimi, ut molest lab ipsum aspel ipsam et atiusani non rem aut voluptature consequam nones ent, od maximet et utem ipitem imenesti',
+  
+  section6: 'Lente multifocal mais\nimplantada no mundo;1\n\n' +
+            'Liberdade do uso de óculos\nna maior parte do tempo;1\n\n' +
+            'Excelente visão de perto,\na meia distância e de longe;\n\n' +
+            'Melhor definição\ndas imagens – corrige as aberrações esféricas.'
 };
 
 var defaultStyle = {

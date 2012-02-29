@@ -6,12 +6,12 @@ clearDashboard();
 
 // Main window
 var main = Ti.UI.createWindow({
-	backgroundImage: 'img/background_purple_green_left.png',
+	backgroundImage: 'img/background_purple_right.png',
 	orientationModes: [Ti.UI.PORTRAIT],
 	opacity: 0,
 	width: 768,
 	left: -768,
-	title: 'Qualidade AcrySof® ASFÉRICA'
+	title: 'catarata'
 });
 
 var section = { 
@@ -31,20 +31,41 @@ main.addEventListener('focus', function () {
 
 // Title
 var mainTitle = Ti.UI.createLabel({
-	width: 550,
-	height: 100,
-	text: 'Por que você merece em seus olhos uma AcrySof® ASFÉRICA?',
+	width: 450,
+	height: 40,
+	text: 'AcrySof® IQ Toric',
 	color: '#1c7a98',
-	top: 20,
-	left: 100,
-	textAlign: 'left',
+	top: 40,
+	right: 100,
+	textAlign: 'right',
 	font: {
-		fontSize: 38,
+		fontSize: 42,
 		fontFamily: 'Swiss 721',
 		fontStyle: 'normal'
 	}
 });
 main.add(mainTitle);
+
+// Next button to leave this page
+var previousButton = createNavigationButton({
+	button: {
+		title: '',
+		top: 35,
+		left: 25,
+		backgroundImage: defaultStyle.navigation.button.prevBgImg,
+		width: 60,
+		height: 114
+	}
+}, 'click', function () {
+		// Create a new window
+          var newWindow = Ti.UI.createWindow({
+            url: 'section3.js'
+          });
+          // Close old window and open the new
+          main.close();
+          newWindow.open();
+});
+main.add(previousButton);
 
 // Inner content
 var body = Ti.UI.createView({
@@ -57,20 +78,19 @@ main.add(body);
 
 var headerTitle = makeTitle({
 	view: {
-		top: 20,
+		top: 70,
 		left: 0,
 		width: 550,
-		height: 336,
+		height: 60,
 		opacity: 0,
-		backgroundImage:'img/last_description_bg.png'		
+		backgroundImage:'img/header_description_bg.png'		
 	},
 	title: {
-		text: sectionContent.section6,
-		color: '#fff',
+		text: 'Visão com astigmatismo',
+		color: '#9284be',
 		top: 15,
-		left: 20,
-		font: { fontSize: 22 },
-		textAlign: 'left',
+		font: { fontSize: 28 },
+		textAlign: 'center',
 		width: 'auto',
 		height: 'auto',
 		opacity: 1
@@ -79,16 +99,16 @@ var headerTitle = makeTitle({
 body.add(headerTitle.view);
 
 var simulationContainer = Ti.UI.createImageView({
-	image: 'img/section_acry_asferica_before.png',
+	image: 'img/section_acry_iq_toric_before.png',
 	opacity: 0,
-	top: 312
+	top: 9
 });
 body.add(simulationContainer);
 
 var simulationContainer2 = Ti.UI.createImageView({
-	image: 'img/section_acry_asferica_after.png',
+	image: 'img/section_acry_iq_toric_after.png',
 	opacity: 0,
-	top: 312
+	top: 9
 });
 body.add(simulationContainer2);
 
@@ -101,6 +121,7 @@ var touchSlide = function touchSlide( element, startX, endX, callback ) {
 	var touchFlag = false;
 	var middleLeftX = endX/3;
 	var middleRightX = (endX/3)*2;
+	var headerTitleContent = ['Visão com astigmatismo', 'Visão com AcrySof® IQ Toric'];
 
 	if ( element ) {
 			element[0].addEventListener('touchstart', function ( start ) {
@@ -110,6 +131,12 @@ var touchSlide = function touchSlide( element, startX, endX, callback ) {
 					element[0].addEventListener('touchend', function ( end ) {
 						if ( end.x >= middleRightX && end.x < endX && touchFlag === false ) {
 							element[0].animate({opacity: 0, duration: 700});
+							
+							headerTitle.title.animate({opacity: 0, duration: 500}, function () {
+								headerTitle.title.text = headerTitleContent[1];
+								headerTitle.title.animate({opacity: 1, duration: 500});
+							});
+
 							element[1].animate({opacity: 1, duration: 1000});
 							touchFlag = true;
 						}
@@ -124,6 +151,12 @@ var touchSlide = function touchSlide( element, startX, endX, callback ) {
 					element[1].addEventListener('touchend', function ( end ) {
 						if ( end.x >= startX && end.x < middleLeftX && touchFlag === true ) {
 							element[1].animate({opacity: 0, duration: 700});
+
+							headerTitle.title.animate({opacity: 0, duration: 500}, function () {
+								headerTitle.title.text = headerTitleContent[0];
+								headerTitle.title.animate({opacity: 1, duration: 500});
+							});
+
 							element[0].animate({opacity: 1, duration: 1000});
 							touchFlag = false;
 						}
