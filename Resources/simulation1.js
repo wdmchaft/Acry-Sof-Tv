@@ -105,90 +105,70 @@ var simulationContainer = Ti.UI.createImageView({
 });
 body.add(simulationContainer);
 
+var simulationContainer2 = Ti.UI.createImageView({
+	image: 'img/simulation_catarata_after.png',
+	opacity: 0,
+	top: 9
+});
+body.add(simulationContainer2);
+
 // Event for simulation
 var touchSlide = function touchSlide( element, startX, endX, callback ) {
 	// Scope function variables
-	element = element || '';
+	element = element || [];
 	callback = callback || function () {};
 	// Local function variables
 	var touchFlag = false;
 	var middleLeftX = endX/3;
 	var middleRightX = (endX/3)*2;
-	var defTime = 350;
 	var headerTitleContent = ['Visão com catarata', 'Visão sem catarata'];
 
 	if ( element ) {
-		element.addEventListener('touchstart', function touchEffectLeftRight( start ) {
-			// Left to right touch
-			if ( start.x >= startX && start.x <= middleLeftX && touchFlag === false ) {
-				// Define with touch end stop, in the final of limit in the image view
-				element.addEventListener('touchend', function ( end ) {
-					if ( end.x >= middleRightX && end.x < endX && touchFlag === false ) {
-						setTimeout(function () {
-							headerTitle.view.animate({opacity: 0, duration: defTime});
-							element.animate({opacity: 0, duration: defTime});
-
-							setTimeout(function () {
+			element[0].addEventListener('touchstart', function ( start ) {
+				// Left to right touch
+				if ( start.x >= startX && start.x <= middleLeftX && touchFlag === false ) {
+					// Define with touch end stop, in the final of limit in the image view
+					element[0].addEventListener('touchend', function ( end ) {
+						if ( end.x >= middleRightX && end.x < endX && touchFlag === false ) {
+							element[0].animate({opacity: 0, duration: 500});
+							
+							headerTitle.title.animate({opacity: 0, duration: 500}, function () {
 								headerTitle.title.text = headerTitleContent[1];
-								element.image = 'img/simulation_catarata_after.png';
+								headerTitle.title.animate({opacity: 1, duration: 500});
+							});
 
-								setTimeout(function () {
-									headerTitle.view.animate({opacity: 1, duration: defTime});
-									element.animate({opacity: 1, duration: defTime}, function () {
-										touchFlag = true;
-									});
-								}, defTime/5);
-							}, defTime*2);
-						}, defTime/5);
-					}
-				});
-			}
+							element[1].animate({opacity: 1, duration: 1000});
+							touchFlag = true;
+						}
+					});
+				}
+			});
 
-			// Right to left touch
-			if ( start.x >= middleRightX && start.x <= endX && touchFlag === true ) {
-				// Limit definition
-				element.addEventListener('touchend', function ( end ) {
-					if ( end.x >= startX && end.x < middleLeftX && touchFlag === true ) {
-						setTimeout(function () {
-							headerTitle.view.animate({opacity: 0, duration: defTime});
-							element.animate({opacity: 0, duration: defTime});
+			element[1].addEventListener('touchstart', function ( start ) {
+				// Right to left touch
+				if ( start.x >= middleRightX && start.x <= endX && touchFlag === true ) {
+					// Limit definition
+					element[1].addEventListener('touchend', function ( end ) {
+						if ( end.x >= startX && end.x < middleLeftX && touchFlag === true ) {
+							element[1].animate({opacity: 0, duration: 500});
 
-							setTimeout(function () {
+							headerTitle.title.animate({opacity: 0, duration: 500}, function () {
 								headerTitle.title.text = headerTitleContent[0];
-								element.image = 'img/simulation_catarata_before.png';
+								headerTitle.title.animate({opacity: 1, duration: 500});
+							});
 
-								setTimeout(function () {
-									headerTitle.view.animate({opacity: 1, duration: defTime});
-									element.animate({opacity: 1, duration: defTime}, function () {
-										touchFlag = false;
-									});
-								}, defTime/5);
-							}, defTime*2);
-						}, defTime/5);
-					}
-				});
-			}
-		});
+							element[0].animate({opacity: 1, duration: 1000});
+							touchFlag = false;
+						}
+					});
+				}
+			});
 	}
 
 	return callback();
 };
 
-//touchSlide( simulationContainer, 0, 545 );
-simulationContainer.addEventListener('touchmove', function ( e ) {
-	var total = 300*1000;
-	var calculate = 0;
-
-	calculate = e.x*1000/total;
-
-	if ( e.x > 300 ) {
-		calculate = 1;
-	} if ( e.x < 50 ) {
-		calculate = 0;
-	}
-
-	simulationContainer.animate({opacity: calculate});
-});
+touchSlide( [simulationContainer, simulationContainer2], 0, 550 );
 // Final of the events
 
 // Main footer menu
