@@ -174,8 +174,8 @@ body.add(model);
 
 var modelDescription = Ti.UI.createLabel({
 	top: 400,
-	right: 100,
-	width: 100,
+	right: 110,
+	width: 85,
 	height: 'auto',
 	font: {fontSize: 18},
 	color: '#fff',
@@ -191,14 +191,22 @@ model.addEventListener('click', function ( e ) {
 	if ( modelTrigger === false ) {
 		e.source.animate({width: e.source.width*6, height: e.source.height*6, top: 70, right: 15, duration: 700});
 		modelDescription.animate({opacity: 0, duration: 300}, function () {
-			modelTrigger = true;
+			modelDescription.text = 'Lente aumentada em 10 vezes';
+			modelDescription.animate({top: 650, width: 200, right: 50}, function () {
+				modelDescription.animate({opacity: 1, duration: 400});
+				modelTrigger = true;
+			});
 		});
 	} if ( modelTrigger === true ) {
 		e.source.animate({opacity: 0, duration: 700}, function () {
 			e.source.animate({width: e.source.width, height: e.source.height, top: e.source.top, right: e.source.right}, function () {
 				e.source.animate({opacity: 1, duration: 600});
-				modelDescription.animate({opacity: 1, duration: 600}, function () {
-					modelTrigger = false;
+				modelDescription.animate({opacity: 0, duration: 300}, function () {
+					modelDescription.text = 'Tamanho real';
+					modelDescription.animate({top: modelDescription.top, width: modelDescription.width, right: modelDescription.right}, function () {
+						modelDescription.animate({opacity: 1, duration: 400});
+						modelTrigger = false;
+					});
 				});
 			});
 		});
