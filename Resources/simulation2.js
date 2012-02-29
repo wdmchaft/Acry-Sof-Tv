@@ -6,7 +6,7 @@ clearDashboard();
 
 // Main window
 var main = Ti.UI.createWindow({
-	backgroundImage: 'img/background_purple_right.png',
+	backgroundImage: 'img/background_green_right.png',
 	orientationModes: [Ti.UI.PORTRAIT],
 	opacity: 0,
 	width: 768,
@@ -31,9 +31,9 @@ main.addEventListener('focus', function () {
 
 // Title
 var mainTitle = Ti.UI.createLabel({
-	width: 300,
+	width: 450,
 	height: 40,
-	text: 'Catarata',
+	text: 'AcrySof® IQ ReSTOR®',
 	color: '#1c7a98',
 	top: 40,
 	right: 100,
@@ -59,7 +59,7 @@ var previousButton = createNavigationButton({
 }, 'click', function () {
 		// Create a new window
           var newWindow = Ti.UI.createWindow({
-            url: 'section1.js'
+            url: 'section2.js'
           });
           // Close old window and open the new
           main.close();
@@ -86,10 +86,10 @@ var headerTitle = makeTitle({
 		backgroundImage:'img/header_description_bg.png'		
 	},
 	title: {
-		text: 'Visão com catarata',
+		text: 'Visão com LIO monofocal e com aberrações',
 		color: '#9284be',
-		top: 10,
-		font: { fontSize: 28 },
+		top: 15,
+		font: { fontSize: 24 },
 		textAlign: 'center',
 		width: 'auto',
 		height: 'auto',
@@ -99,14 +99,14 @@ var headerTitle = makeTitle({
 body.add(headerTitle.view);
 
 var simulationContainer = Ti.UI.createImageView({
-	image: 'img/simulation_catarata_before.png',
+	image: 'img/section_acrysof_restor_iq_toriq_before.png',
 	opacity: 0,
 	top: 9
 });
 body.add(simulationContainer);
 
 var simulationContainer2 = Ti.UI.createImageView({
-	image: 'img/simulation_catarata_after.png',
+	image: 'img/section_acrysof_restor_iq_toriq_after.png',
 	opacity: 0,
 	top: 9
 });
@@ -121,7 +121,7 @@ var touchSlide = function touchSlide( element, startX, endX, callback ) {
 	var touchFlag = false;
 	var middleLeftX = endX/3;
 	var middleRightX = (endX/3)*2;
-	var headerTitleContent = ['Visão com catarata', 'Visão sem catarata'];
+	var headerTitleContent = ['Visão com LIO monofocal e com aberrações', 'Visão com AcrySof® IQ ReSTOR®'];
 
 	if ( element ) {
 			element[0].addEventListener('touchstart', function ( start ) {

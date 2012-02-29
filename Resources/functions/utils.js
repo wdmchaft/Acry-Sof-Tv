@@ -4,7 +4,10 @@ Ti.include('db.js');
 var db = Ti.Database.install('db/acrysof.sqlite', 'acrysofdb');
 
 var sectionContent = {
-  editorial: getContextBy(db, 'section', 'id', 1)
+  editorial: getContextBy(db, 'section', 'id', 1),
+  section2: 'A partir dos 45 anos de idade, é comum as pessoas sentirem seus olhos perderem a capacidade de focalizar os objetos a diferentes distâncias. Isso pode trazer limitações' +
+  ' a atividades no trabalho e também no lazer.\n\n' +  
+  'A lente AcrySof ® IQ ReSTOR® traz a possibilidade de ver a vida com nitidez, seja de perto, a meia distância ou de longe. Estudos clínicos mostram que 80% dos pacientes que se submeteram ao implante de AcrySof ® IQ ReSTOR® nunca mais precisaram do uso dos óculos nas tarefas diárias.1'
 };
 
 var defaultStyle = {
@@ -286,18 +289,18 @@ var createFooterMenu = function () {
   // Actions for the itens in the menu
   for ( context in menu ) {
     if ( context.search('context') > -1 ) {
-      if ( main.title.search( menu[context].text.toLowerCase() ) > -1 ) {
+      if ( main.title.toLowerCase() === menu[context].text.toLowerCase() ) {
         menu[context].color = '#1c7a98';
       }
 
       menu[context].addEventListener('touchstart', function () {
         //this.color = '#1c7a98';
         this.opacity = 0.7;
-        this.animate({ opacity: 1, color: '#1c7a98', duration: 500 });
+        this.animate({ opacity: 1, duration: 500 });
       });
 
       menu[context].addEventListener('touchend', function () {
-        if ( typeof main !== 'undefined' && typeof main.title !== 'undefined' && main.title.search( this.text.toLowerCase() ) === -1 ) {
+        if ( typeof main !== 'undefined' && typeof main.title !== 'undefined' && main.title.toLowerCase().search( this.text.toLowerCase() ) === -1 ) {
           this.color = menuSets.color;
           // Create a new window
           var newWindow = Ti.UI.createWindow({
