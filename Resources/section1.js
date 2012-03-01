@@ -146,6 +146,18 @@ var body = Ti.UI.createView({
 });
 main.add(body);
 
+// Stamp
+var bottomStamp = createStampImg({
+	view: {
+		image: 'img/stamp1.png',
+		bottom: 27,
+		right: 10,
+		width: 104,
+		height: 52
+	}
+});
+main.add(bottomStamp);
+
 var headerContent = {
 	title: 'A moderna cirurgia',
 	subtitle: 'que pode mudar a sua vida'

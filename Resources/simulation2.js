@@ -76,6 +76,18 @@ var body = Ti.UI.createView({
 });
 main.add(body);
 
+// Stamp
+var bottomStamp = createStampImg({
+	view: {
+		image: 'img/stamp1.png',
+		bottom: 27,
+		left: 10,
+		width: 104,
+		height: 52
+	}
+});
+main.add(bottomStamp);
+
 var headerTitle = makeTitle({
 	view: {
 		top: 70,

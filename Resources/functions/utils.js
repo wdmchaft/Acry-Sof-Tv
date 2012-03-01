@@ -352,6 +352,16 @@ var createFooterMenu = function () {
 
 // Functions for utilize out the box
 
+var createStampImg = function createStampImg( imgSettings ) {
+  imgSettings = imgSettings || '';
+
+  if ( imgSettings ) {
+    var stamp = Ti.UI.createImageView( imgSettings.view );
+
+    return stamp;
+  }
+}
+
 function makeBody( options ) {
   // Create a body layout
 	options = options || false;

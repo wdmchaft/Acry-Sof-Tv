@@ -55,6 +55,24 @@ var body = Ti.UI.createView({
 });
 main.add(body);
 
+var screen = {
+	width: Titanium.Platform.displayCaps.platformWidth
+};
+
+// Stamp
+var bottomStamp = createStampImg({
+	view: {
+		image: 'img/stamp6.png',
+		bottom: 0,
+		right: 0,
+		width: 46,
+		height: 361
+	}
+});
+main.add(bottomStamp);
+
+bottomStamp.bottom = (screen.width/2) - bottomStamp.width;
+
 var headerTitle = makeTitle({
 	view: {
 		top: 20,

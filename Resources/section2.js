@@ -119,6 +119,18 @@ var body = Ti.UI.createView({
 });
 main.add(body);
 
+// Stamp
+var bottomStamp = createStampImg({
+	view: {
+		image: 'img/stamp2.png',
+		bottom: 35,
+		right: 35,
+		width: 297,
+		height: 205
+	}
+});
+main.add(bottomStamp);
+
 var headerContent = {
 	title: 'Qualidade de visão em',
 	subtitle: 'todas as distâncias?'
