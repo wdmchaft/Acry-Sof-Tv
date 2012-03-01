@@ -1,7 +1,7 @@
 Ti.include('db.js');
 
 // Pre defineds
-var db = Ti.Database.install('db/acrysof.sqlite', 'acrysofdb');
+var db = Titanium.Database.install('db/acrysof.sqlite', 'acrysofdb');
 
 var sectionContent = {
   editorial: getContextBy(db, 'section', 'id', 1),
@@ -21,8 +21,8 @@ var sectionContent = {
             'ne pro moluptatiur alit laccum eum reperio. Ehent qui aut volorem fugiate mporument assi odiasimagnam eos vid qui ulpa volupta dicipsa ndenderias nobitia aut ommoluptat.' +
             'Henimi, ut molest lab ipsum aspel ipsam et atiusani non rem aut voluptature consequam nones ent, od maximet et utem ipitem imenesti',
   
-  section6: 'Lente multifocal mais\nimplantada no mundo;1\n\n' +
-            'Liberdade do uso de óculos\nna maior parte do tempo;1\n\n' +
+  section6: 'Lente multifocal mais\nimplantada no mundo;\n\n' +
+            'Liberdade do uso de óculos\nna maior parte do tempo;\n\n' +
             'Excelente visão de perto,\na meia distância e de longe;\n\n' +
             'Melhor definição\ndas imagens – corrige as aberrações esféricas.'
 };

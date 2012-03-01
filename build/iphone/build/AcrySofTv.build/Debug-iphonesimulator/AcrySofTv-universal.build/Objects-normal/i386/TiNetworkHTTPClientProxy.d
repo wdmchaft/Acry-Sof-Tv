@@ -35,7 +35,6 @@ dependencies: \
   /Users/kaiquesilva/Documents/Titanium\ Studio\ Workspace/AcrySofTv/build/iphone/Classes/TiStylesheet.h \
   /Users/kaiquesilva/Documents/Titanium\ Studio\ Workspace/AcrySofTv/build/iphone/Classes/KrollBridge.h \
   /Users/kaiquesilva/Documents/Titanium\ Studio\ Workspace/AcrySofTv/build/iphone/Classes/TiModule.h \
-  /Users/kaiquesilva/Documents/Titanium\ Studio\ Workspace/AcrySofTv/build/iphone/Classes/XHRBridge.h \
   /Users/kaiquesilva/Documents/Titanium\ Studio\ Workspace/AcrySofTv/build/iphone/Classes/TiRootViewController.h \
   /Users/kaiquesilva/Documents/Titanium\ Studio\ Workspace/AcrySofTv/build/iphone/Classes/TiRootController.h \
   /Users/kaiquesilva/Documents/Titanium\ Studio\ Workspace/AcrySofTv/build/iphone/Classes/TiWindowProxy.h \
