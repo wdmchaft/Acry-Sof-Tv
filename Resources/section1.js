@@ -35,47 +35,17 @@ main.addEventListener('focus', function () {
 });
 
 // Next button to leave this page
-var nextButton = createNavigationButton({
+var previousButton = createNavigationButton({
 	button: {
 		title: '',
 		top: 35,
-		right: 30,
-		backgroundImage: defaultStyle.navigation.button.nextBgImg,
+		right: 50,
+		backgroundImage: defaultStyle.navigation.button.prevBgImg,
 		width: 60,
 		height: 114,
-		opacity: 0
+		opacity: 1
 	}
 }, 'click', function () {
-		if ( section.clickFlag === false ) {
-			section.clickFlag = true;
-		    // go to next section into the catarata
-		    if ( section.indication < 4 ) {
-			    imgDescription.view.animate({opacity: 0, bottom: 135, duration: 800}, function () {
-					bodyImg.animate({opacity: 0, duration: 600}, function () {
-						section.indication++;
-			    		hasSection({section: section});
-			    		verifySectionButtons({section: section});
-
-			    		bodyImg.animate({opacity: 1, duration: 600}, function () {
-			    			imgDescription.view.animate({bottom: 0, opacity: 1, duration: 600});
-			    			section.clickFlag = false;
-			    		});
-					});
-				});
-			} else {
-				// Create a new window
-		        var newWindow = Ti.UI.createWindow({
-		          url: section.simulationPath
-		        });
-		        // Close old window and open the new
-		        main.close();
-		        newWindow.open();
-			}
-		}
-});
-main.add(nextButton);
-
-nextButton.addEventListener('longpress', function () {
 	// Create a new window
     var newWindow = Ti.UI.createWindow({
       url: section.simulationPath
@@ -84,42 +54,7 @@ nextButton.addEventListener('longpress', function () {
     main.close();
     newWindow.open();
 });
-
-// Next button to leave this page
-var previousButton = createNavigationButton({
-	button: {
-		title: '',
-		top: 35,
-		right: 100,
-		backgroundImage: defaultStyle.navigation.button.prevBgImg,
-		width: 60,
-		height: 114,
-		opacity: 0
-	}
-}, 'click', function () {
-		if ( section.clickFlag === false ) {
-			section.clickFlag = true;
-		    // go to next section into the catarata
-		    if ( section.indication > 1 ) {
-			    imgDescription.view.animate({opacity: 0, bottom: 135, duration: 800}, function () {
-					bodyImg.animate({opacity: 0, duration: 600}, function () {
-						section.indication--;
-			    		hasSection({section: section});
-			    		verifySectionButtons({section: section});
-
-			    		bodyImg.animate({opacity: 1, duration: 600}, function () {
-			    			imgDescription.view.animate({bottom: 0, opacity: 1, duration: 600});
-			    			section.clickFlag = false;
-			    		});
-					});
-				});
-			}
-		}
-});
 main.add(previousButton);
-
-// Verify buttons in this section
-verifySectionButtons({section: section});
 
 // Title
 var mainTitle = Ti.UI.createLabel({

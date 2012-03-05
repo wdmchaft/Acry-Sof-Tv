@@ -49,12 +49,12 @@ main.add(mainTitle);
 // Next button to leave this page
 var previousButton = createNavigationButton({
 	button: {
-		title: '',
+		title: 'Operação',
 		top: 35,
-		left: 25,
-		backgroundImage: defaultStyle.navigation.button.prevBgImg,
-		width: 60,
-		height: 114
+		left: 20,
+		width: 120,
+		height: 45,
+		backgroundImage: 'img/button_back_content.png'
 	}
 }, 'click', function () {
 		// Create a new window
@@ -138,10 +138,10 @@ var touchSlide = function touchSlide( element, startX, endX, callback ) {
 	if ( element ) {
 			element[0].addEventListener('touchstart', function ( start ) {
 				// Left to right touch
-				if ( start.x >= startX && start.x <= middleLeftX && touchFlag === false ) {
+				if ( start.x >= middleRightX && start.x <= endX && touchFlag === false ) {
 					// Define with touch end stop, in the final of limit in the image view
 					element[0].addEventListener('touchend', function ( end ) {
-						if ( end.x >= middleRightX && end.x < endX && touchFlag === false ) {
+						if ( end.x >= startX && end.x < middleLeftX && touchFlag === false ) {
 							element[0].animate({opacity: 0, duration: 700});
 							
 							headerTitle.title.animate({opacity: 0, duration: 500}, function () {
@@ -158,10 +158,10 @@ var touchSlide = function touchSlide( element, startX, endX, callback ) {
 
 			element[1].addEventListener('touchstart', function ( start ) {
 				// Right to left touch
-				if ( start.x >= middleRightX && start.x <= endX && touchFlag === true ) {
+				if ( start.x >= startX && start.x <= middleLeftX && touchFlag === true ) {
 					// Limit definition
 					element[1].addEventListener('touchend', function ( end ) {
-						if ( end.x >= startX && end.x < middleLeftX && touchFlag === true ) {
+						if ( end.x >= middleRightX && end.x < endX && touchFlag === true ) {
 							element[1].animate({opacity: 0, duration: 700});
 
 							headerTitle.title.animate({opacity: 0, duration: 500}, function () {
@@ -170,6 +170,7 @@ var touchSlide = function touchSlide( element, startX, endX, callback ) {
 							});
 
 							element[0].animate({opacity: 1, duration: 1000});
+
 							touchFlag = false;
 						}
 					});

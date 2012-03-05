@@ -19,12 +19,12 @@ main.addEventListener('focus', function () {
 
 var nextButton = createNavigationButton({
 	button: {
-		title: '',
-		top: 35,
+		title: 'Voltar ao Menu',
+		top: 40,
 		right: 30,
-		backgroundImage: defaultStyle.navigation.button.nextBgImg,
-		width: 60,
-		height: 114
+		width: 167,
+		height: 45,
+		backgroundImage: 'img/button_back_content.png'
 	}
 }, 'click', function () {
 	    // go to next page

@@ -82,6 +82,36 @@ var verifySectionButtons = function ( definitions ) {
     }
 };
 
+var makeStampExtra = function makeStampExtra() {
+  var screen = {
+    width: Titanium.Platform.displayCaps.platformWidth
+  };
+
+  // Stamp
+  var bottomStamp = createStampImg({
+    view: {
+      image: 'img/stamp6.png',
+      bottom: 0,
+      right: 0,
+      width: 46,
+      height: 361
+    }
+  });
+  main.add(bottomStamp);
+
+  bottomStamp.bottom = (screen.width/2) - bottomStamp.width;
+
+  bottomStamp.addEventListener('click', function () {
+    // Create a new window
+    var newWindow = Ti.UI.createWindow({
+      url: 'section7.js'
+    });
+    // Close old window and open the new
+    main.close();
+    newWindow.open(); 
+  });
+};
+
 // Create the standart footer menu
 var createFooterMenu = function () {
   
@@ -106,11 +136,11 @@ var createFooterMenu = function () {
     ], 
     paths: [
       'editorial.js',
-      'section1.js',
-      'section2.js',
-      'section3.js',
-      'section4.js',
-      'section5.js',
+      'simulation1.js',
+      'simulation2.js',
+      'simulation3.js',
+      'simulation4.js',
+      'simulation5.js',
       'section6.js',
       'section7.js'
     ]
@@ -317,7 +347,7 @@ var createFooterMenu = function () {
       });
 
       menu[context].addEventListener('touchend', function () {
-        if ( typeof main !== 'undefined' && typeof main.title !== 'undefined' && main.title.toLowerCase().search( this.text.toLowerCase() ) === -1 ) {
+        if ( typeof main !== 'undefined' && typeof main.title !== 'undefined' && main.title.toLowerCase().search( '^' + this.text.toLowerCase() + '$' ) === -1 ) {
           this.color = menuSets.color;
           // Create a new window
           var newWindow = Ti.UI.createWindow({

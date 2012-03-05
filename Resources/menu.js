@@ -79,7 +79,7 @@ var populateMenu = function ( itens ) {
 		textAlign: 'right',
 		top: 0,
 		right: menuSets.right,
-		basePath: 'section1.js'
+		basePath: 'simulation1.js'
 	});
 	menu.item02.add(menu.content02);
 	
@@ -102,7 +102,7 @@ var populateMenu = function ( itens ) {
 		textAlign: 'right',
 		top: 0,
 		right: menuSets.right,
-		basePath: 'section2.js'
+		basePath: 'simulation2.js'
 	});
 	menu.item03.add(menu.content03);
 
@@ -125,7 +125,7 @@ var populateMenu = function ( itens ) {
 		textAlign: 'right',
 		top: 0,
 		right: menuSets.right,
-		basePath: 'section3.js'
+		basePath: 'simulation3.js'
 	});
 	menu.item04.add(menu.content04);
 
@@ -148,7 +148,7 @@ var populateMenu = function ( itens ) {
 		textAlign: 'right',
 		top: 0,
 		right: menuSets.right,
-		basePath: 'section4.js'
+		basePath: 'simulation4.js'
 	});
 	menu.item05.add(menu.content05);
 
@@ -171,7 +171,7 @@ var populateMenu = function ( itens ) {
 		textAlign: 'right',
 		top: 0,
 		right: menuSets.right,
-		basePath: 'section5.js'
+		basePath: 'simulation5.js'
 	});
 	menu.item06.add(menu.content06);
 
