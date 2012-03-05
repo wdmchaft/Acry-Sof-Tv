@@ -164,7 +164,7 @@ body.add(imgDescription.view);
 imgDescription.view.add(imgDescription.label);
 
 // Main footer menu
-var footerMainMenu = createFooterMenu();
+var footerMainMenu = createFooterMenu(main);
 main.add(footerMainMenu);
 
 // Open the main window

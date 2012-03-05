@@ -20,7 +20,7 @@ main.addEventListener('focus', function () {
 });
 
 // Main footer menu
-var footerMainMenu = createFooterMenu();
+var footerMainMenu = createFooterMenu(main);
 main.add(footerMainMenu);
 
 // Open the main window

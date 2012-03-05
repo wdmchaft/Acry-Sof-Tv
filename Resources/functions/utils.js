@@ -113,8 +113,9 @@ var makeStampExtra = function makeStampExtra() {
 };
 
 // Create the standart footer menu
-var createFooterMenu = function () {
-  
+var createFooterMenu = function ( object ) {
+  object = object || '';
+
   var footerMenu = Ti.UI.createView({
       width: 768,
       height: 235,
@@ -172,7 +173,7 @@ var createFooterMenu = function () {
   // For itens who change
   var changingItem = {};
 
-  if ( typeof main !== 'undefined' && typeof main.title !== 'undefined' && main.title.search('editorial') > -1 ) {
+  if ( typeof object !== 'undefined' && typeof object.title !== 'undefined' && object.title.search('editorial') > -1 ) {
     changingItem['title'] = 'Menu';
     changingItem['url'] = 'menu.js';
   }
@@ -336,9 +337,9 @@ var createFooterMenu = function () {
   // Actions for the itens in the menu
   for ( context in menu ) {
     if ( context.search('context') > -1 ) {
-      if ( main.title.toLowerCase() === menu[context].text.toLowerCase() ) {
+      /*if ( object.title.toLowerCase() === menu[context].text.toLowerCase() ) {
         menu[context].color = '#1c7a98';
-      }
+      }*/
 
       menu[context].addEventListener('touchstart', function () {
         //this.color = '#1c7a98';
@@ -347,14 +348,14 @@ var createFooterMenu = function () {
       });
 
       menu[context].addEventListener('touchend', function () {
-        if ( typeof main !== 'undefined' && typeof main.title !== 'undefined' && main.title.toLowerCase().search( '^' + this.text.toLowerCase() + '$' ) === -1 ) {
+        if ( typeof object !== 'undefined' && typeof object.title !== 'undefined' && object.title.toLowerCase().search( '^' + this.text.toLowerCase() + '$' ) === -1 ) {
           this.color = menuSets.color;
           // Create a new window
           var newWindow = Ti.UI.createWindow({
             url: this.basePath
           });
           // Close old window and open the new
-          main.close();
+          object.close();
           newWindow.open(); 
         }
       });
@@ -511,7 +512,6 @@ var makeImageDescription = function ( settings ) {
     };
   }
 };
-
 
 // Verify the content
 var hasSection = function ( definitions ) {

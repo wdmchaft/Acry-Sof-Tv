@@ -186,7 +186,7 @@ model.addEventListener('click', function ( e ) {
 
 
 // Main footer menu
-var footerMainMenu = createFooterMenu();
+var footerMainMenu = createFooterMenu(main);
 main.add(footerMainMenu);
 
 // Open the main window

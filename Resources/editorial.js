@@ -19,12 +19,12 @@ main.addEventListener('focus', function () {
 
 var nextButton = createNavigationButton({
 	button: {
-		title: 'Voltar ao Menu',
+		title: 'Ir ao Menu',
 		top: 40,
 		right: 30,
 		width: 167,
 		height: 45,
-		backgroundImage: 'img/button_back_content.png'
+		backgroundImage: 'img/button_green_content.png'
 	}
 }, 'click', function () {
 	    // go to next page
@@ -60,7 +60,7 @@ var content = Ti.UI.createLabel({
 contentArea.add(content);
 
 // Main footer menu
-var footerMainMenu = createFooterMenu();
+var footerMainMenu = createFooterMenu(main);
 main.add(footerMainMenu);
 
 // open the main window

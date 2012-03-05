@@ -49,11 +49,12 @@ main.add(mainTitle);
 // Next button to leave this page
 var previousButton = createNavigationButton({
 	button: {
-		title: 'Operação',
+		title: 'Lente',
 		top: 35,
 		left: 20,
 		width: 120,
-		height: 45
+		height: 45,
+		backgroundImage: 'img/button_purple_content.png'
 	}
 }, 'click', function () {
 		// Create a new window
@@ -124,67 +125,100 @@ var simulationContainer2 = Ti.UI.createImageView({
 body.add(simulationContainer2);
 
 // Event for simulation
-var touchSlide = function touchSlide( element, startX, endX, callback ) {
+var touchSlide = function touchSlide( element, limit, callback ) {
 	// Scope function variables
 	element = element || [];
 	callback = callback || function () {};
 	// Local function variables
 	var touchFlag = false;
-	var middleLeftX = endX/3;
-	var middleRightX = (endX/3)*2;
-	var headerTitleContent = ['Visão com aberrações', 'Visão com AcrySof® IQ'];
+	var headerTitleContent = ['Visão com catarata', 'Visão sem catarata'];
+	var limitX = limit;
 
 	if ( element ) {
 			element[0].addEventListener('touchstart', function ( start ) {
-				// Left to right touch
-				if ( start.x >= middleRightX && start.x <= endX && touchFlag === false ) {
-					// Define with touch end stop, in the final of limit in the image view
-					element[0].addEventListener('touchend', function ( end ) {
-						if ( end.x >= startX && end.x < middleLeftX && touchFlag === false ) {
-							element[0].animate({opacity: 0, duration: 700});
-							
-							headerTitle.title.animate({opacity: 0, duration: 500}, function () {
-								headerTitle.title.text = headerTitleContent[1];
-								headerTitle.title.animate({opacity: 1, duration: 500});
-							});
+				element[0].addEventListener('touchend', function ( end ) {
+					if ( end.x > start.x + limitX && touchFlag === false ) {
+						element[0].animate({opacity: 0, duration: 700});
+						
+						headerTitle.title.animate({opacity: 0, duration: 500}, function () {
+							headerTitle.title.text = headerTitleContent[1];
+							headerTitle.title.animate({opacity: 1, duration: 500});
+						});
 
-							element[1].animate({opacity: 1, duration: 1000});
-							touchFlag = true;
-						}
-					});
-				}
+						element[1].animate({opacity: 1, duration: 1000});
+						touchFlag = true;
+					}
+				});
 			});
 
 			element[1].addEventListener('touchstart', function ( start ) {
-				// Right to left touch
-				if ( start.x >= startX && start.x <= middleLeftX && touchFlag === true ) {
-					// Limit definition
-					element[1].addEventListener('touchend', function ( end ) {
-						if ( end.x >= middleRightX && end.x < endX && touchFlag === true ) {
-							element[1].animate({opacity: 0, duration: 700});
+				element[1].addEventListener('touchend', function ( end ) {
+					if ( end.x < start.x - limitX && touchFlag === true ) {
+						element[1].animate({opacity: 0, duration: 700});
 
-							headerTitle.title.animate({opacity: 0, duration: 500}, function () {
-								headerTitle.title.text = headerTitleContent[0];
-								headerTitle.title.animate({opacity: 1, duration: 500});
-							});
+						headerTitle.title.animate({opacity: 0, duration: 500}, function () {
+							headerTitle.title.text = headerTitleContent[0];
+							headerTitle.title.animate({opacity: 1, duration: 500});
+						});
 
-							element[0].animate({opacity: 1, duration: 1000});
-							
-							touchFlag = false;
-						}
-					});
-				}
+						element[0].animate({opacity: 1, duration: 1000});
+
+						touchFlag = false;
+					}
+				});
 			});
 	}
 
 	return callback();
 };
 
-touchSlide( [simulationContainer, simulationContainer2], 0, 550 );
+touchSlide( [simulationContainer, simulationContainer2], 100 );
+
+var pageChange = function pageChange() {
+	var flag = false;
+	var newPath = {};
+		newPath['url'] = Ti.UI.currentWindow.url;
+		newPath['urlNumber'] = parseInt(newPath['url'].match('[0-9]')[0])
+		newPath['name'] = newPath.url.replace(/[0-9]+[.]js$/, '');
+		newPath['next'] = newPath['urlNumber'] + 1;
+		newPath['previous'] = newPath['urlNumber'] - 1;
+
+	main.addEventListener('touchstart', function ( start ) {
+		main.addEventListener('touchend', function ( end ) {
+			if ( start.x > 500 && end.x < 768) {
+				if ( start.x - end.x > 50 ) {
+					if ( newPath['next'] > 0 && newPath['next'] < 6 ) {
+						// Create a new window
+					    var newWindow = Ti.UI.createWindow({
+					      url: newPath.name + newPath.next + '.js'
+					    });
+					    // Close old window and open the new
+					    main.close();
+					    newWindow.open(); 
+					} 
+				}
+			} if ( start.x > 0 && end.x < 500 ) {
+				if ( start.x - end.x < -50) {
+					if ( newPath['previous'] > 0 && newPath['previous'] < 6 ) {
+						// Create a new window
+					    var newWindow = Ti.UI.createWindow({
+					      url: newPath.name + newPath.previous + '.js'
+					    });
+					    // Close old window and open the new
+					    main.close();
+					    newWindow.open();
+					}
+				}
+			}
+		});
+	});
+};
+
+pageChange();
 // Final of the events
 
 // Main footer menu
-var footerMainMenu = createFooterMenu();
+var footerMainMenu = createFooterMenu(main);
 main.add(footerMainMenu);
 
 // Open the main window
