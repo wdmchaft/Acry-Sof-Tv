@@ -215,20 +215,27 @@ for ( var thumb = 0; thumb < thumbnailList.length; thumb++ ) {
 	var verifyImage = function () {
 		if ( thumbnailList[thumb].thumbnailID === section.thumbnailID ) {
 			bodyImg.image = thumbnailList[thumb].imgPath;
+			thumbnailList[section.thumbnailID-1].animate({opacity: 1, duration: 200});;
 		}
 	};
 
+	var allThumbOutFocus = function () {
+		for ( var i in thumbnailList ) {
+			thumbnailList[i].animate({opacity: 0.7, duration: 250});
+		}
+	}
+
+	allThumbOutFocus();
 	verifyImage();
 
-	thumbnailList[thumb].addEventListener('click', function () {
-		bodyImg.animate({opacity: 0.2, duration: 250});
-		setTimeout(function () {
-			bodyImg.image = this.imgPath;
-			setTimeout(function () {
-				bodyImg.animate({opacity: 1, duration: 250});
-			}, 250);
-		}, 250);
-		
+	thumbnailList[thumb].addEventListener('click', function ( e ) {
+		bodyImg.animate({opacity: 0, duration: 500}, function () {
+			bodyImg.image = e.source.imgPath;
+			bodyImg.thumbnailID = e.source.thumbnailID;
+			allThumbOutFocus();
+			e.source.animate({opacity: 1, duration: 200});
+			bodyImg.animate({opacity: 1, duration: 1000});
+		});
 	});
 }
 // Final verification
