@@ -131,64 +131,6 @@ var touchSlide = function touchSlide( element, limit, callback ) {
 
 touchSlide( [simulationContainer, simulationContainer2], 100 );
 
-var pageChange = function pageChange() {
-	var flag = false;
-	var newPath = {};
-		newPath['url'] = Ti.UI.currentWindow.url;
-		newPath['urlNumber'] = parseInt(newPath['url'].match('[0-9]')[0])
-		newPath['name'] = newPath.url.replace(/[0-9]+[.]js$/, '');
-		newPath['next'] = newPath['urlNumber'] + 1;
-		newPath['previous'] = newPath['urlNumber'] - 1;
-
-	main.addEventListener('touchstart', function ( start ) {
-		main.addEventListener('touchend', function ( end ) {
-			if ( start.x > 500 && end.x < 768) {
-				if ( start.x - end.x > 50 ) {
-					if ( newPath['next'] > 0 && newPath['next'] < 7 ) {
-						if ( newPath['next'] === 6 ) {
-							// Create a new window
-						    var newWindow = Ti.UI.createWindow({
-						      url: 'section' + newPath.next + '.js'
-						    });
-						    // Close old window and open the new
-						    main.close();
-						    newWindow.open();
-						} else {
-							// Create a new window
-						    var newWindow = Ti.UI.createWindow({
-						      url: newPath.name + newPath.next + '.js'
-						    });
-						    // Close old window and open the new
-						    main.close();
-						    newWindow.open(); 
-						}
-					}
-				}
-			} if ( start.x > 0 && end.x < 500 ) {
-				if ( start.x - end.x < -50) {
-					if ( newPath['urlNumber'] === 6 ) {
-							// Create a new window
-						    var newWindow = Ti.UI.createWindow({
-						      url: 'simulation' + newPath.previous + '.js'
-						    });
-						    // Close old window and open the new
-						    main.close();
-						    newWindow.open();
-						} else {
-							// Create a new window
-						    var newWindow = Ti.UI.createWindow({
-						      url: newPath.name + newPath.previous + '.js'
-						    });
-						    // Close old window and open the new
-						    main.close();
-						    newWindow.open(); 
-						}
-				}
-			}
-		});
-	});
-};
-
 pageChange();
 // Final of the events
 

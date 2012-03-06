@@ -19,7 +19,8 @@ var section = {
 	name: 'catarata',
 	indication: 1,
 	simulationPath: 'simulation1.js',
-	clickFlag: true
+	clickFlag: true,
+	thumbnailID: 1
 };
 
 main.addEventListener('focus', function () {
@@ -126,21 +127,67 @@ var bodyHeaderContent = makeTitle({
 });
 body.add(bodyHeaderContent.view);
 
-var bodyContent = {
-	img: 'img/section_catarata_01.png'
-}
+var thumbnail1 = Ti.UI.createView({
+	backgroundImage: 'img/thumbnail_catarata01.png',
+	left: 0,
+	opacity: 1,
+	width: 80,
+	height: 80,
+	thumbnailID: 1,
+	imgPath: 'img/section_catarata01.png',
+	zIndex: 300
+});
+
+var thumbnail2 = Ti.UI.createView({
+	backgroundImage: 'img/thumbnail_catarata02.png',
+	left: 85,
+	opacity: 1,
+	width: 80,
+	height: 80,
+	thumbnailID: 1,
+	imgPath: 'img/section_catarata02.png',
+	zIndex: 300
+});
+
+var thumbnail3 = Ti.UI.createView({
+	backgroundImage: 'img/thumbnail_catarata03.png',
+	left: 170,
+	opacity: 1,
+	width: 80,
+	height: 80,
+	thumbnailID: 1,
+	imgPath: 'img/section_catarata03.png',
+	zIndex: 300
+});
+
+var thumbnail4 = Ti.UI.createView({
+	backgroundImage: 'img/thumbnail_catarata04.png',
+	left: 255,
+	opacity: 1,
+	width: 80,
+	height: 80,
+	thumbnailID: 1,
+	imgPath: 'img/section_catarata04.png',
+	zIndex: 300
+});
+
+var thumbnailList = [
+	thumbnail1,
+	thumbnail2,
+	thumbnail3,
+	thumbnail4
+];
 
 var bodyImg = Ti.UI.createImageView({
-	image: bodyContent.img,
-	top: 0,
+	image: '',
+	top: 105,
+	width: 549,
+	height: 600,
 	opacity: 0,
-	zIndex: 10
+	zIndex: 10,
+	thumbnailID: 1
 });
 body.add(bodyImg);
-
-var descriptionContent = {
-	text: 'Cristalino Opacificado'
-};
 
 var imgDescription = makeImageDescription({
 	view: {
@@ -151,17 +198,40 @@ var imgDescription = makeImageDescription({
 		left: 0,
 		opacity: 0
 	},
-	label: {
-		text: descriptionContent.text,
-		width: 'auto',
-		height: 'auto',
-		color: '#fff',
-		textAlign: 'center',
-		font: { fontSize: 24 }
+	imgHolder: {
+		top: 14,
+		left: 110,
+		height: 100,
+		zIndex: 150
 	}
 });
 body.add(imgDescription.view);
-imgDescription.view.add(imgDescription.label);
+imgDescription.imgHolder.add(thumbnailList[0]);
+imgDescription.imgHolder.add(thumbnailList[1]);
+imgDescription.imgHolder.add(thumbnailList[2]);
+imgDescription.imgHolder.add(thumbnailList[3]);
+// Verify img to add in section
+for ( var thumb = 0; thumb < thumbnailList.length; thumb++ ) {
+	var verifyImage = function () {
+		if ( thumbnailList[thumb].thumbnailID === section.thumbnailID ) {
+			bodyImg.image = thumbnailList[thumb].imgPath;
+		}
+	};
+
+	verifyImage();
+
+	thumbnailList[thumb].addEventListener('click', function () {
+		bodyImg.animate({opacity: 0.2, duration: 250});
+		setTimeout(function () {
+			bodyImg.image = this.imgPath;
+			setTimeout(function () {
+				bodyImg.animate({opacity: 1, duration: 250});
+			}, 250);
+		}, 250);
+		
+	});
+}
+// Final verification
 
 // Main footer menu
 var footerMainMenu = createFooterMenu(main);
