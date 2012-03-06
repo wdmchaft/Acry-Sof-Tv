@@ -67,7 +67,7 @@ var headerTitle = makeTitle({
 		backgroundImage:'img/header_description_bg.png'		
 	},
 	title: {
-		text: 'Visão com LIO monofocal e com aberrações',
+		text: 'Visão com aberrações',
 		color: '#9284be',
 		top: 15,
 		font: { fontSize: 24 },
@@ -100,7 +100,7 @@ var touchSlide = function touchSlide( element, limit, callback ) {
 	callback = callback || function () {};
 	// Local function variables
 	var touchFlag = false;
-	var headerTitleContent = ['Visão com catarata', 'Visão sem catarata'];
+	var headerTitleContent = ['Visão com aberrações', 'Visão com AcrySof® ASFÉRICA'];
 	var limitX = limit;
 
 	if ( element ) {

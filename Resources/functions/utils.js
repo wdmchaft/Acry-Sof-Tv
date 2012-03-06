@@ -388,7 +388,7 @@ var pageChange = function pageChange() {
     height: 155,
     top: 0,
     right: 0,
-    opacity: 0.5
+    opacity: 0.3
   });
 
   var previousButton = Ti.UI.createButton({
@@ -397,11 +397,11 @@ var pageChange = function pageChange() {
     height: 155,
     top: 0,
     left: 0,
-    opacity: 0.5
+    opacity: 0.3
   });
 
-  forwardButton.top = (Ti.Platform.displayCaps.platformWidth / 2) - forwardButton.width / 2;
-  previousButton.top = (Ti.Platform.displayCaps.platformWidth / 2) - previousButton.width / 2;
+  forwardButton.top = Ti.Platform.displayCaps.platformWidth/2 + forwardButton.width;
+  previousButton.top = Ti.Platform.displayCaps.platformWidth/2 + previousButton.width;
 
   // Trigger events
   var lockFlag = false;
