@@ -382,65 +382,88 @@ var createFooterMenu = function ( object ) {
 }
 
 var pageChange = function pageChange() {
-  var flag = false;
-  var newPath = {};
-    newPath['url'] = Ti.UI.currentWindow.url;
-    newPath['urlNumber'] = parseInt(newPath['url'].match('[0-9]')[0])
-    newPath['name'] = newPath.url.replace(/[0-9]+[.]js$/, '');
-    newPath['next'] = newPath['urlNumber'] + 1;
-    newPath['previous'] = newPath['urlNumber'] - 1;
-
-  main.addEventListener('touchstart', function ( start ) {
-    info(start.y)
-    main.addEventListener('touchend', function ( end ) {
-      if ( start.x > 600 && end.x < 768 && start.y > 165 && start.y > 740 && end.y < 165 && end.x < 740 ) {
-        if ( start.x - end.x > 10 ) {
-          if ( newPath['next'] > 0 && newPath['next'] < 6 ) {
-            if ( newPath['next'] === 6 ) {
-                // Create a new window
-                var newWindow = Ti.UI.createWindow({
-                  url: 'section' + newPath.next + '.js'
-                });
-                // Close old window and open the new
-                main.close();
-                newWindow.open();
-            } else {
-              // Create a new window
-              var newWindow = Ti.UI.createWindow({
-                url: newPath.name + newPath.next + '.js'
-              });
-              // Close old window and open the new
-              main.close();
-              newWindow.open();
-            }
-          } 
-        }
-      } if ( start.x > 0 && end.x < 100 && start.y > 165 && start.y > 740 && end.y < 165 && end.x < 740 ) {
-          if ( start.x - end.x < -10) {
-            if ( newPath['previous'] > 0 && newPath['precious'] < 6 ) {
-              if ( newPath['urlNumber'] === 6 ) {
-                // Create a new window
-                  var newWindow = Ti.UI.createWindow({
-                    url: 'simulation' + newPath.previous + '.js'
-                  });
-                  // Close old window and open the new
-                  Ti.currentWindow.close()
-                  main.close();
-                  newWindow.open();
-              } else {
-                // Create a new window
-                  var newWindow = Ti.UI.createWindow({
-                    url: newPath.name + newPath.previous + '.js'
-                  });
-                  // Close old window and open the new
-                  main.close();
-                  newWindow.open();
-              }
-            }
-          }
-        }
-    });
+  var forwardButton = Ti.UI.createButton({
+    backgroundImage: 'img/button_forward_screen.png',
+    width: 39,
+    height: 155,
+    top: 0,
+    right: 0,
+    opacity: 0.5
   });
+
+  var previousButton = Ti.UI.createButton({
+    backgroundImage: 'img/button_previous_screen.png',
+    width: 39,
+    height: 155,
+    top: 0,
+    left: 0,
+    opacity: 0.5
+  });
+
+  forwardButton.top = (Ti.Platform.displayCaps.platformWidth / 2) - forwardButton.width / 2;
+  previousButton.top = (Ti.Platform.displayCaps.platformWidth / 2) - previousButton.width / 2;
+
+  // Trigger events
+  var lockFlag = false;
+  var simulation  = {};
+      simulation['url'] = Ti.UI.currentWindow.url;
+      simulation['linkNumber'] = parseInt(simulation.url.match('[0-9]')[0]);
+
+  if ( simulation.linkNumber === 6 ) {
+    forwardButton.hide();
+  } if ( simulation.linkNumber === 1 ) {
+    previousButton.hide();
+  }
+
+  forwardButton.addEventListener('click', function () {
+    simulation['nextPath'] = simulation.linkNumber + 1;
+    if ( simulation.linkNumber >= 1 && simulation.linkNumber <= 6 ) {
+      if ( simulation.linkNumber === 5 ) {
+        // Create a new window
+        var newWindow = Ti.UI.createWindow({
+          url: 'section6.js'
+        });
+        // Close old window and open the new
+        main.close();
+        newWindow.open();
+      } else {
+        // Create a new window
+        var newWindow = Ti.UI.createWindow({
+          url: 'simulation' + simulation.nextPath + '.js'
+        });
+        // Close old window and open the new
+        main.close();
+        newWindow.open();
+      }
+    }
+  });
+
+  previousButton.addEventListener('click', function () {
+    simulation['backPath'] = simulation.linkNumber - 1;
+    if ( simulation.linkNumber >= 1 && simulation.linkNumber <= 6 ) {
+      if ( simulation.linkNumber === 6 ) {
+        // Create a new window
+        var newWindow = Ti.UI.createWindow({
+          url: 'simulation5.js'
+        });
+        // Close old window and open the new
+        main.close();
+        newWindow.open();
+      } else {
+        // Create a new window
+        var newWindow = Ti.UI.createWindow({
+          url:  'simulation' + simulation.backPath + '.js'
+        });
+        // Close old window and open the new
+        main.close();
+        newWindow.open();
+      }
+    }
+  });
+  // Final trigger events
+
+  main.add(forwardButton);
+  main.add(previousButton);
 };
 
 // Functions for utilize out the box

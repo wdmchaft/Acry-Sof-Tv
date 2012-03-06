@@ -59,20 +59,19 @@ makeStampExtra();
 
 var headerTitle = makeTitle({
 	view: {
-		top: 20,
-		left: 0,
-		width: 550,
-		height: 336,
+		top: 70,
+		left: -1,
+		width: 552,
+		height: 60,
 		opacity: 0,
-		backgroundImage:'img/last_description_bg.png'		
+		backgroundImage:'img/header_description_bg.png'		
 	},
 	title: {
-		text: sectionContent.section6,
-		color: '#fff',
+		text: 'Visão com LIO monofocal e com aberrações',
+		color: '#9284be',
 		top: 15,
-		left: 20,
-		font: { fontSize: 22 },
-		textAlign: 'left',
+		font: { fontSize: 24 },
+		textAlign: 'center',
 		width: 'auto',
 		height: 'auto',
 		opacity: 1
@@ -81,16 +80,16 @@ var headerTitle = makeTitle({
 body.add(headerTitle.view);
 
 var simulationContainer = Ti.UI.createImageView({
-	image: 'img/section_acry_asferica_before.png',
+	image: 'img/boat_1.png',
 	opacity: 0,
-	top: 312
+	top: 9
 });
 body.add(simulationContainer);
 
 var simulationContainer2 = Ti.UI.createImageView({
-	image: 'img/section_acry_asferica_after.png',
+	image: 'img/boat_2.png',
 	opacity: 0,
-	top: 312
+	top: 9
 });
 body.add(simulationContainer2);
 
@@ -109,6 +108,12 @@ var touchSlide = function touchSlide( element, limit, callback ) {
 				element[0].addEventListener('touchend', function ( end ) {
 					if ( end.x > start.x + limitX && touchFlag === false ) {
 						element[0].animate({opacity: 0, duration: 700});
+						
+						headerTitle.title.animate({opacity: 0, duration: 500}, function () {
+							headerTitle.title.text = headerTitleContent[1];
+							headerTitle.title.animate({opacity: 1, duration: 500});
+						});
+
 						element[1].animate({opacity: 1, duration: 1000});
 						touchFlag = true;
 					}
@@ -119,7 +124,14 @@ var touchSlide = function touchSlide( element, limit, callback ) {
 				element[1].addEventListener('touchend', function ( end ) {
 					if ( end.x < start.x - limitX && touchFlag === true ) {
 						element[1].animate({opacity: 0, duration: 700});
+
+						headerTitle.title.animate({opacity: 0, duration: 500}, function () {
+							headerTitle.title.text = headerTitleContent[0];
+							headerTitle.title.animate({opacity: 1, duration: 500});
+						});
+
 						element[0].animate({opacity: 1, duration: 1000});
+
 						touchFlag = false;
 					}
 				});
