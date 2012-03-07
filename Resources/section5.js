@@ -165,13 +165,6 @@ model.addEventListener('click', function ( e ) {
 		modelDescription.animate({opacity: 0, duration: 500}, function () {
 			modelTrigger = true;
 		});
-		/*modelDescription.animate({opacity: 0, duration: 300}, function () {
-			modelDescription.text = 'Lente aumentada em 10 vezes';
-			modelDescription.animate({top: 650, width: 200, right: 50}, function () {
-				modelDescription.animate({opacity: 1, duration: 400});
-				modelTrigger = true;
-			});
-		});*/
 	} if ( modelTrigger === true ) {
 		e.source.animate({opacity: 0, duration: 700}, function () {
 			e.source.animate({width: e.source.width, height: e.source.height, top: e.source.top, right: e.source.right}, function () {
@@ -183,7 +176,7 @@ model.addEventListener('click', function ( e ) {
 	}
 });
 
-
+previousToSimulation();
 
 // Main footer menu
 var footerMainMenu = createFooterMenu(main);

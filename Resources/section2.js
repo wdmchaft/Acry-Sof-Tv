@@ -183,7 +183,7 @@ model.addEventListener('click', function ( e ) {
 	}
 });
 
-
+previousToSimulation();
 
 // Main footer menu
 var footerMainMenu = createFooterMenu(main);

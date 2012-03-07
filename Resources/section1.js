@@ -144,7 +144,7 @@ var thumbnail2 = Ti.UI.createView({
 	opacity: 1,
 	width: 80,
 	height: 80,
-	thumbnailID: 1,
+	thumbnailID: 2,
 	imgPath: 'img/section_catarata02.png',
 	zIndex: 300
 });
@@ -155,7 +155,7 @@ var thumbnail3 = Ti.UI.createView({
 	opacity: 1,
 	width: 80,
 	height: 80,
-	thumbnailID: 1,
+	thumbnailID: 3,
 	imgPath: 'img/section_catarata03.png',
 	zIndex: 300
 });
@@ -166,7 +166,7 @@ var thumbnail4 = Ti.UI.createView({
 	opacity: 1,
 	width: 80,
 	height: 80,
-	thumbnailID: 1,
+	thumbnailID: 4,
 	imgPath: 'img/section_catarata04.png',
 	zIndex: 300
 });
@@ -239,6 +239,8 @@ for ( var thumb = 0; thumb < thumbnailList.length; thumb++ ) {
 	});
 }
 // Final verification
+
+previousToSimulation();
 
 // Main footer menu
 var footerMainMenu = createFooterMenu(main);

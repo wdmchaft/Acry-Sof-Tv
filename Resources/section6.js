@@ -67,7 +67,7 @@ var headerTitle = makeTitle({
 		backgroundImage:'img/header_description_bg.png'		
 	},
 	title: {
-		text: 'Visão com aberrações',
+		text: 'Visão noturna com aberrações',
 		color: '#9284be',
 		top: 15,
 		font: { fontSize: 24 },
@@ -99,30 +99,43 @@ var touchSlide = function touchSlide( element, limit, callback ) {
 	element = element || [];
 	callback = callback || function () {};
 	// Local function variables
-	var touchFlag = false;
-	var headerTitleContent = ['Visão com aberrações', 'Visão com AcrySof® ASFÉRICA'];
+	var touchFlag = true;
+	var headerTitleContent = ['Visão noturna com aberrações', 'Visão noturna com AcrySof® ASFÉRICA'];
 	var limitX = limit;
 
 	if ( element ) {
+			var startx;
+			var endx;
+			var distance;
+
 			element[0].addEventListener('touchstart', function ( start ) {
-				element[0].addEventListener('touchend', function ( end ) {
-					if ( end.x > start.x + limitX && touchFlag === false ) {
+				startx = start.x;
+				element[0].addEventListener('touchmove', function ( e ) {
+					endx = e.x;
+					distance = startx - endx;
+					
+					if ( distance > limitX && touchFlag === false ) {
 						element[0].animate({opacity: 0, duration: 700});
-						
+
 						headerTitle.title.animate({opacity: 0, duration: 500}, function () {
-							headerTitle.title.text = headerTitleContent[1];
+							headerTitle.title.text = headerTitleContent[0];
 							headerTitle.title.animate({opacity: 1, duration: 500});
 						});
 
 						element[1].animate({opacity: 1, duration: 1000});
+
 						touchFlag = true;
 					}
 				});
 			});
 
 			element[1].addEventListener('touchstart', function ( start ) {
-				element[1].addEventListener('touchend', function ( end ) {
-					if ( end.x < start.x - limitX && touchFlag === true ) {
+				startx = start.x;
+				element[1].addEventListener('touchmove', function ( e ) {
+					endx = e.x;
+					distance = startx - endx;
+					
+					if ( distance < -limitX && touchFlag === true ) {
 						element[1].animate({opacity: 0, duration: 700});
 
 						headerTitle.title.animate({opacity: 0, duration: 500}, function () {
@@ -141,7 +154,7 @@ var touchSlide = function touchSlide( element, limit, callback ) {
 	return callback();
 };
 
-touchSlide( [simulationContainer, simulationContainer2], 100 );
+touchSlide( [simulationContainer, simulationContainer2], 25 );
 
 pageChange();
 // Final of the events
