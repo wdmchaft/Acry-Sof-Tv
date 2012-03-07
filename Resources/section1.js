@@ -20,7 +20,7 @@ var section = {
 	indication: 1,
 	simulationPath: 'simulation1.js',
 	clickFlag: true,
-	thumbnailID: 1
+	thumbnailID: 0
 };
 
 main.addEventListener('focus', function () {
@@ -111,7 +111,7 @@ var thumbnail1 = Ti.UI.createView({
 	opacity: 1,
 	width: 80,
 	height: 80,
-	thumbnailID: 1,
+	thumbnailID: 0,
 	imgPath: 'img/section_catarata01.png',
 	zIndex: 300
 });
@@ -122,7 +122,7 @@ var thumbnail2 = Ti.UI.createView({
 	opacity: 1,
 	width: 80,
 	height: 80,
-	thumbnailID: 2,
+	thumbnailID: 1,
 	imgPath: 'img/section_catarata02.png',
 	zIndex: 300
 });
@@ -133,7 +133,7 @@ var thumbnail3 = Ti.UI.createView({
 	opacity: 1,
 	width: 80,
 	height: 80,
-	thumbnailID: 3,
+	thumbnailID: 2,
 	imgPath: 'img/section_catarata03.png',
 	zIndex: 300
 });
@@ -144,7 +144,7 @@ var thumbnail4 = Ti.UI.createView({
 	opacity: 1,
 	width: 80,
 	height: 80,
-	thumbnailID: 4,
+	thumbnailID: 3,
 	imgPath: 'img/section_catarata04.png',
 	zIndex: 300
 });
@@ -163,7 +163,7 @@ var bodyImg = Ti.UI.createImageView({
 	height: 600,
 	opacity: 0,
 	zIndex: 10,
-	thumbnailID: 1
+	thumbnailID: 0
 });
 body.add(bodyImg);
 
@@ -188,34 +188,170 @@ imgDescription.imgHolder.add(thumbnailList[0]);
 imgDescription.imgHolder.add(thumbnailList[1]);
 imgDescription.imgHolder.add(thumbnailList[2]);
 imgDescription.imgHolder.add(thumbnailList[3]);
+
 // Verify img to add in section
+var allThumbOutFocus = function () {
+	for ( var i in thumbnailList ) {
+		if ( thumbnailList[i].thumbnailID === bodyImg.thumbnailID ) {
+			thumbnailList[i].animate({opacity: 1, duration: 250});
+		} else {
+			thumbnailList[i].animate({opacity: 0.4, duration: 250});
+		}
+	}
+}
+
+allThumbOutFocus();
+
+var previousButton = Ti.UI.createButton({
+	backgroundImage: 'img/button_back_catarata.png',
+	width: 34,
+	height: 34,
+	left: 35,
+	zIndex: 300
+});
+imgDescription.view.add(previousButton);
+
+var nextButton = Ti.UI.createButton({
+	backgroundImage: 'img/button_forward_catarata.png',
+	width: 34,
+	height: 34,
+	right: 35,
+	zIndex: 300
+});
+imgDescription.view.add(nextButton);
+
+var nextID, previousID;
+
 for ( var thumb = 0; thumb < thumbnailList.length; thumb++ ) {
 	var verifyImage = function () {
 		if ( thumbnailList[thumb].thumbnailID === section.thumbnailID ) {
 			bodyImg.image = thumbnailList[thumb].imgPath;
-			thumbnailList[section.thumbnailID-1].animate({opacity: 1, duration: 200});;
 		}
 	};
-
-	var allThumbOutFocus = function () {
-		for ( var i in thumbnailList ) {
-			thumbnailList[i].animate({opacity: 0.7, duration: 250});
-		}
-	}
 
 	allThumbOutFocus();
 	verifyImage();
 
-	thumbnailList[thumb].addEventListener('click', function ( e ) {
+	thumbnailList[thumb].addEventListener('touchend', function ( e ) {
 		bodyImg.animate({opacity: 0, duration: 500}, function () {
 			bodyImg.image = e.source.imgPath;
 			bodyImg.thumbnailID = e.source.thumbnailID;
 			allThumbOutFocus();
-			e.source.animate({opacity: 1, duration: 200});
 			bodyImg.animate({opacity: 1, duration: 1000});
+			section.thumbnailID = e.source.thumbnailID;
+			e.source.animate({opacity: 1, duration: 250});
 		});
 	});
 }
+
+var touchFlag = false;
+
+nextButton.addEventListener('touchend', function () {
+	if ( bodyImg.thumbnailID === section.thumbnailID ) {
+		var nextID = section.thumbnailID + 1;
+		
+		if ( nextID >= 0 && nextID <= 3 ) {
+			touchFlag = true;
+			bodyImg.animate({opacity: 0, duration: 500}, function () {
+				bodyImg.image = thumbnailList[nextID].imgPath;
+				bodyImg.thumbnailID = thumbnailList[nextID].thumbnailID;
+				section.thumbnailID = nextID;
+				allThumbOutFocus();
+				bodyImg.animate({opacity: 1, duration: 1000});
+			});
+			touchFlag = false;
+		}
+	}
+});
+
+previousButton.addEventListener('touchend', function () {
+	if ( bodyImg.thumbnailID === section.thumbnailID ) {
+		var previousID = section.thumbnailID - 1;
+		
+		if ( previousID >= 0 && previousID <= 3 ) {
+			touchFlag = true;
+			bodyImg.animate({opacity: 0, duration: 500}, function () {
+				bodyImg.image = thumbnailList[previousID].imgPath;
+				bodyImg.thumbnailID = thumbnailList[previousID].thumbnailID;
+				section.thumbnailID = previousID;
+				allThumbOutFocus();
+				bodyImg.animate({opacity: 1, duration: 1000});
+			});
+			touchFlag = false;
+		}
+	}
+});
+
+var touchSlide = function touchSlide( element, limit, callback ) {
+	// Scope function variables
+	element = element || [];
+	callback = callback || function () {};
+	// Local function variables
+	var headerTitleContent = ['Visão com catarata', 'Visão sem catarata'];
+	var limitX = limit;
+
+	if ( element ) {
+			var startx;
+			var endx;
+			var distance;
+
+			element[0].addEventListener('touchstart', function ( start ) {
+				startx = start.x;
+				element[0].addEventListener('touchend', function ( e ) {
+					endx = e.x;
+					distance = startx - endx;
+					
+					if ( distance > limitX && touchFlag === false ) {
+						var nextID = section.thumbnailID + 1;
+		
+						if ( nextID >= 0 && nextID <= 3 ) {
+							touchFlag = true;
+							bodyImg.animate({opacity: 0, duration: 500}, function () {
+								bodyImg.image = thumbnailList[nextID].imgPath;
+								bodyImg.thumbnailID = thumbnailList[nextID].thumbnailID;
+								section.thumbnailID = nextID;
+								allThumbOutFocus();
+								bodyImg.animate({opacity: 1, duration: 1000}, function () {
+									touchFlag = false;
+								});
+							});
+						}
+					}
+				});
+			});
+
+			element[0].addEventListener('touchstart', function ( start ) {
+				startx = start.x;
+				element[0].addEventListener('touchend', function ( e ) {
+					endx = e.x;
+					distance = startx - endx;
+					
+					if ( distance < -limitX && touchFlag === false ) {
+						touchFlag = true;
+						
+						var previousID = section.thumbnailID - 1;
+						
+						if ( previousID >= 0 && previousID <= 3 ) {
+							touchFlag = true;
+							bodyImg.animate({opacity: 0, duration: 500}, function () {
+								bodyImg.image = thumbnailList[previousID].imgPath;
+								bodyImg.thumbnailID = thumbnailList[previousID].thumbnailID;
+								section.thumbnailID = previousID;
+								allThumbOutFocus();
+								bodyImg.animate({opacity: 1, duration: 1000}, function () {
+									touchFlag = false;
+								});
+							});
+						}
+					}
+				});
+			});
+	}
+
+	return callback();
+};
+
+touchSlide( [bodyImg], 10 );
 // Final verification
 
 previousToSimulation();

@@ -130,11 +130,11 @@ var touchSlide = function touchSlide( element, limit, callback ) {
 	element = element || [];
 	callback = callback || function () {};
 	// Local function variables
-	var touchFlag = true;
+	var touchFlag = false;
 	var headerTitleContent = ['Visão com LIO monofocal e com aberrações', 'Visão com AcrySof® IQ ReSTOR®'];
 	var limitX = limit;
 
-		if ( element ) {
+	if ( element ) {
 			var startx;
 			var endx;
 			var distance;

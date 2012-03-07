@@ -130,7 +130,7 @@ var touchSlide = function touchSlide( element, limit, callback ) {
 	element = element || [];
 	callback = callback || function () {};
 	// Local function variables
-	var touchFlag = true;
+	var touchFlag = false;
 	var headerTitleContent = ['Visão com aberrações', 'Visão com AcrySof® IQ'];
 	var limitX = limit;
 

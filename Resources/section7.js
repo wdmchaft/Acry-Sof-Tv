@@ -21,7 +21,7 @@ main.addEventListener('focus', function () {
 previousToSimulation();
 
 main.addEventListener('touchend', function ( end ) {
-	if ( end.x > 60 && end.y < 750 && end.source.winName === 'main' ) {
+	if ( end.source.title === 'Extras' ) {
 		var newWindow = Ti.UI.createWindow({
 			url: 'menu.js'
 		});
