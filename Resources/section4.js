@@ -32,28 +32,6 @@ main.addEventListener('focus', function () {
 	});
 });
 
-// Next button to leave this page
-var previousButton = createNavigationButton({
-	button: {
-		title: '',
-		top: 35,
-		right: 50,
-		backgroundImage: defaultStyle.navigation.button.prevBgImg,
-		width: 60,
-		height: 114,
-		opacity: 1
-	}
-}, 'click', function () {
-	// Create a new window
-    var newWindow = Ti.UI.createWindow({
-      url: section.simulationPath
-    });
-    // Close old window and open the new
-    main.close();
-    newWindow.open();
-});
-main.add(previousButton);
-
 // Title
 var mainTitle = Ti.UI.createLabel({
 	width: 450,
