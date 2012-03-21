@@ -149,7 +149,7 @@ var touchSlide = function touchSlide( element, limit, callback ) {
 						element[0].animate({opacity: 0, duration: 700});
 
 						headerTitle.title.animate({opacity: 0, duration: 500}, function () {
-							headerTitle.title.text = headerTitleContent[0];
+							headerTitle.title.text = headerTitleContent[1];
 							headerTitle.title.animate({opacity: 1, duration: 500});
 						});
 
