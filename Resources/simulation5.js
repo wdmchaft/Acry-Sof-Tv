@@ -6,12 +6,12 @@ clearDashboard();
 
 // Main window
 var main = Ti.UI.createWindow({
-	backgroundImage: 'img/background_purple_right.png',
+	backgroundImage: 'img/background_green_right.png',
 	orientationModes: [Ti.UI.PORTRAIT],
 	opacity: 0,
 	width: 768,
 	left: -768,
-	title: 'AcrySof® IQ ReSTOR® Toric'
+	title: 'AcrySof® IQ'
 });
 
 var section = { 
@@ -31,9 +31,9 @@ main.addEventListener('focus', function () {
 
 // Title
 var mainTitle = Ti.UI.createLabel({
-	width: 600,
+	width: 450,
 	height: 40,
-	text: 'AcrySof® IQ ReSTOR® Toric',
+	text: 'AcrySof® IQ',
 	color: '#1c7a98',
 	top: 40,
 	right: 100,
@@ -54,7 +54,7 @@ var previousButton = createNavigationButton({
 		left: 20,
 		width: 120,
 		height: 45,
-		backgroundImage: 'img/button_green_content.png'
+		backgroundImage: 'img/button_purple_content.png'
 	}
 }, 'click', function () {
 		// Create a new window
@@ -111,14 +111,14 @@ var headerTitle = makeTitle({
 body.add(headerTitle.view);
 
 var simulationContainer = Ti.UI.createImageView({
-	image: 'img/section_acry_iq_restor_toric_before.png',
+	image: 'img/section_acrysof_iq_before.png',
 	opacity: 0,
 	top: 9
 });
 body.add(simulationContainer);
 
 var simulationContainer2 = Ti.UI.createImageView({
-	image: 'img/section_acry_iq_restor_toric_after.png',
+	image: 'img/section_acrysof_iq_after.png',
 	opacity: 0,
 	top: 9
 });
@@ -131,7 +131,7 @@ var touchSlide = function touchSlide( element, limit, callback ) {
 	callback = callback || function () {};
 	// Local function variables
 	var touchFlag = false;
-	var headerTitleContent = ['Visão com aberrações', 'Visão com AcrySof® IQ ReSTOR® Toric'];
+	var headerTitleContent = ['Visão com aberrações', 'Visão com AcrySof® IQ'];
 	var limitX = limit;
 
 	if ( element ) {

@@ -117,7 +117,7 @@ var populateMenu = function ( itens ) {
 
 	// Content
 	menu['content04'] = Ti.UI.createLabel({
-		text: 'AcrySof® IQ Toric',
+		text: 'AcrySof® IQ ReSTOR® Toric',
 		width: 'auto',
 		height: 'auto',
 		font: { fontSize: menuSets.size },
@@ -140,7 +140,7 @@ var populateMenu = function ( itens ) {
 
 	// Content
 	menu['content05'] = Ti.UI.createLabel({
-		text: 'AcrySof® IQ',
+		text: 'AcrySof® IQ Toric',
 		width: 'auto',
 		height: 'auto',
 		font: { fontSize: menuSets.size },
@@ -163,7 +163,7 @@ var populateMenu = function ( itens ) {
 
 	// Content
 	menu['content06'] = Ti.UI.createLabel({
-		text: 'AcrySof® IQ ReSTOR® Toric',
+		text: 'AcrySof® IQ',
 		width: 'auto',
 		height: 'auto',
 		font: { fontSize: menuSets.size },
@@ -186,7 +186,7 @@ var populateMenu = function ( itens ) {
 
 	// Content
 	menu['content07'] = Ti.UI.createLabel({
-		text: 'Qualidade AcrySof® ASFÉRICA',
+		text: 'AcrySof® ASFÉRICA',
 		width: 'auto',
 		height: 'auto',
 		font: { fontSize: menuSets.size },

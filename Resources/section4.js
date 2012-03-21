@@ -7,17 +7,17 @@ clearDashboard();
 
 // Main window
 var main = Ti.UI.createWindow({
-	backgroundImage: 'img/background_green_left.png',
+	backgroundImage: 'img/background_purple_left.png',
 	orientationModes: [Ti.UI.PORTRAIT],
 	opacity: 0,
 	width: 768,
 	left: -768,
-	title: 'AcrySof® IQ'
+	title: 'AcrySof® IQ Toric'
 });
 
 // For idicate the section, for modify the content
 var section = {
-	name: 'AcrySof® IQ',
+	name: 'AcrySof® IQ Toric',
 	indication: 1,
 	simulationPath: 'simulation4.js',
 	clickFlag: true
@@ -36,7 +36,7 @@ main.addEventListener('focus', function () {
 var mainTitle = Ti.UI.createLabel({
 	width: 450,
 	height: 40,
-	text: 'AcrySof® IQ',
+	text: 'AcrySof® IQ Toric',
 	color: '#1c7a98',
 	top: 40,
 	left: 105,
@@ -60,7 +60,7 @@ main.add(body);
 // Stamp
 var bottomStamp = createStampImg({
 	view: {
-		image: 'img/stamp4.png',
+		image: 'img/stamp3.png',
 		bottom: 35,
 		right: 35,
 		width: 297,
@@ -70,8 +70,8 @@ var bottomStamp = createStampImg({
 main.add(bottomStamp);
 
 var headerContent = {
-	title: 'Qualidade',
-	subtitle: 'de visão?'
+	title: 'Visão borrada ou',
+	subtitle: 'distorcida?'
 };
 
 var bodyHeaderContent = makeTitle({
@@ -103,7 +103,7 @@ var bodyHeaderContent = makeTitle({
 body.add(bodyHeaderContent.view);
 
 var description = Ti.UI.createLabel({
-	text: sectionContent.section4,
+	text: sectionContent.section3,
 	width: 250,
 	height: 'auto',
 	color: '#fff',
@@ -114,7 +114,7 @@ var description = Ti.UI.createLabel({
 body.add(description);
 
 var model = Ti.UI.createImageView({
-	image: 'img/lens3.png',
+	image: 'img/lens2.png',
 	top: 300,
 	right: 130,
 	width: 272/6,

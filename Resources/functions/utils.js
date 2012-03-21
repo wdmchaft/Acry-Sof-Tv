@@ -17,9 +17,12 @@ var sectionContent = {
   section4: ' A lente AcrySof® IQ, com seu desenho asférico, traz a possibilidade de ver a vida com nitidez, tratando as aberrações visuais. Proporcione-se uma vida com visão de alto índice de detalhes' +
             'e contrastes, graças à tecnologia no tratamento das aberrações visuais.',
 
-  section5: 'Tem quaeperes et et fugia vel eius dus ex es repudant autatis simet alit essequae seque' +
-            'ne pro moluptatiur alit laccum eum reperio. Ehent qui aut volorem fugiate mporument assi odiasimagnam eos vid qui ulpa volupta dicipsa ndenderias nobitia aut ommoluptat.' +
-            'Henimi, ut molest lab ipsum aspel ipsam et atiusani non rem aut voluptature consequam nones ent, od maximet et utem ipitem imenesti',
+  section5: 'Uma pessoa que tem catarata, astigmatismo e presbiopia (dificuldade de focalizar objetos próximos)' + 
+            'pode recuperar sua visão após a cirurgia de catarata, mas precisará de auxílio de óculos para enxergar' +
+            'bem de longe e de perto, a menos que o astigmatismo e a presbiopia sejam solucionados também no momento' +
+            'da cirurgia com a tecnologia disponível da AcrySof® IQ ReSTOR® Toric. Essa lente é capaz de recuperar' +
+            'a qualidade de visão em um único passo, de perto, de longe e em qualquer distância, mesmo para pacientes' +
+            'com astigmatismo, deixando de lado os óculos na maior parte do tempo.¹',
   
   section6: 'Lente multifocal mais\nimplantada no mundo;\n\n' +
             'Liberdade do uso de óculos\nna maior parte do tempo;\n\n' +
@@ -129,10 +132,10 @@ var createFooterMenu = function ( object ) {
       'Editorial',
       'Catarata',
       'AcrySof® IQ ReSTOR®',
+      'AcrySof® IQ ReSTOR® Toric',
       'AcrySof® IQ Toric',
       'AcrySof® IQ',
-      'AcrySof® IQ ReSTOR® Toric',
-      'Qualidade AcrySof® ASFÉRICA',
+      'AcrySof® ASFÉRICA',
       'Extras'
     ], 
     paths: [
