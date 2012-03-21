@@ -54,7 +54,7 @@ var previousButton = createNavigationButton({
 		left: 20,
 		width: 120,
 		height: 45,
-		backgroundImage: 'img/button_purple_content.png'
+		backgroundImage: 'img/button_green_content.png'
 	}
 }, 'click', function () {
 		// Create a new window

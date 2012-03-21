@@ -118,7 +118,8 @@ var model = Ti.UI.createImageView({
 	top: 300,
 	right: 130,
 	width: 272/6,
-	height: 554/6
+	height: 554/6,
+	flag: false
 });
 body.add(model);
 
@@ -134,28 +135,26 @@ var modelDescription = Ti.UI.createLabel({
 });
 body.add(modelDescription);
 
-var modelTrigger = false;
-
 model.addEventListener('click', function ( e ) {
-
-	if ( modelTrigger === false ) {
-		e.source.animate({width: e.source.width*6, height: e.source.height*6, top: 70, right: 15, duration: 700});
-		modelDescription.animate({opacity: 0, duration: 500}, function () {
-			modelTrigger = true;
-		});
-		/*modelDescription.animate({opacity: 0, duration: 300}, function () {
-			modelDescription.text = 'Lente aumentada em 10 vezes';
-			modelDescription.animate({top: 650, width: 200, right: 50}, function () {
-				modelDescription.animate({opacity: 1, duration: 400});
-				modelTrigger = true;
+	if ( e.source.flag === false ) {
+		e.source.flag = null;
+		e.source.animate({width: e.source.width*6, height: e.source.height*6, top: 70, right: 15, duration: 700}, function () {
+			modelDescription.animate({opacity: 0, duration: 500}, function () {
+				setTimeout(function () {
+					e.source.flag = true;
+				}, 20);
 			});
-		});*/
-	} if ( modelTrigger === true ) {
+		});
+	} if ( e.source.flag === true ) {
+		e.source.flag = null;
 		e.source.animate({opacity: 0, duration: 700}, function () {
 			e.source.animate({width: e.source.width, height: e.source.height, top: e.source.top, right: e.source.right}, function () {
 				e.source.animate({opacity: 1, duration: 600});
-				modelDescription.animate({opacity: 1, duration: 600});
-				modelTrigger = false;
+				modelDescription.animate({opacity: 1, duration: 600}, function () {
+					setTimeout(function () {
+						e.source.flag = false;
+					}, 20);
+				});
 			});
 		});
 	}
